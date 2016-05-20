@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6276e2</color>
+    <color name="colorPrimaryDark">#303f9f</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#FFFFFF</color>
+    <color name="yellow">#fd9e05</color>
+    <color name="red">#e40101</color>
+    <color name="gris_claire">#d7d7d7</color>
+    <color name="bleu_claire">#c3d4e9</color>
+    <color name="fondTabGlob">#1d9c00</color>
+</resources>

@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:orientation="vertical"
+    android:background="#3945A7">
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:background="@drawable/layout_bg"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Nom d&apos;utilisateur :"
+
+            android:layout_marginTop="@dimen/dim2"
+            android:layout_marginLeft="@dimen/dim2"/>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Mot de passe :"
+            android:layout_marginLeft="@dimen/dim2"
+            android:layout_gravity="center_vertical"
+            android:layout_above="@+id/editText2"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/editText1">
+    </EditText>
+
+        <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true">
+
+        <requestFocus android:layout_width="wrap_content" />
+
+    </EditText>
+
+
+        <Button
+        android:id="@+id/button1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:onClick="login"
+        android:text="Login"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="36dp" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

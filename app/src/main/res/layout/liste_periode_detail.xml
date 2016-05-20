@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gris_claire">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_major"
+        android:text="Periode"
+        android:id="@+id/tvNomPeriode"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dim2"
+        android:background="@color/bleu_claire"
+        >
+
+        <TextView
+            android:layout_width="@dimen/int_width"
+            android:layout_height="@dimen/int_height"
+            android:layout_marginTop="@dimen/half_dim"
+            android:layout_marginBottom= "@dimen/half_dim"
+            android:layout_marginLeft="@dimen/half_dim"
+            android:background="@color/yellow"
+            android:padding="@dimen/dim1"
+            android:id="@+id/tvInt1" />
+        <TextView
+            android:layout_width="@dimen/int_width"
+            android:layout_height="@dimen/int_height"
+            android:layout_marginTop="@dimen/half_dim"
+            android:layout_marginBottom="@dimen/half_dim"
+            android:background="@color/red"
+            android:padding="@dimen/dim1"
+            android:id="@+id/tvInt2" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

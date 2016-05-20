@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Statisitque"
+            android:id="@+id/tvNom"
+            android:layout_gravity="center_horizontal" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/dim1"
+            android:layout_marginRight= "@dimen/dim1">
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="200dp"
+                android:layout_height="@dimen/dim2"
+                android:background="@color/yellow">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="@dimen/dim2"
+                    android:layout_height="@dimen/dim2"
+                    android:id="@+id/llProgression"
+                    android:background="@color/colorPrimary"></LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="35/100"
+                android:id="@+id/tvResultat"
+                android:layout_marginLeft="@dimen/dim2"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

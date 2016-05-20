@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/dim6"
+    tools:context="com.example.ali2nat.v1.SalleActivity"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:id="@+id/linearLayout">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/dim1"
+                android:layout_marginBottom="@dimen/dim1"
+                android:layout_marginRight="@dimen/dim3"
+                android:layout_marginLeft="@dimen/dim3"
+                android:background="#ffffff"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Sélectionner des salles :"
+                    android:id="@+id/tVSelecSalles"
+                    />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dim4"
+                    android:inputType="textPostalAddress"
+                    android:ems="10"
+                    android:id="@+id/editText"
+                    android:layout_gravity="right" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Rayon :"
+                    android:id="@+id/tVRayon"
+                    android:paddingTop="@dimen/dim1"/>
+
+                <SeekBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/dim2"
+                    android:id="@+id/seekBarSalles" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="@dimen/dim1"
+                android:paddingTop="@dimen/half_dim"
+                android:layout_alignParentStart="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mes Salles préférés :"
+                    android:textSize="@dimen/text_size_major"
+                    android:textStyle="bold"/>
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/listPref"
+                    android:background="@color/white"
+                    android:layout_margin="@dimen/dim1"></ListView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/dim1"
+                android:paddingTop="@dimen/half_dim"
+                android:background="@color/colorPrimary">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mes Salles dans ma région :"
+                    android:textSize="@dimen/text_size_major"
+                    android:textStyle="bold"/>
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/listSalleGlob"
+                    android:background="@color/white"
+                    android:layout_margin="@dimen/dim1"></ListView>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

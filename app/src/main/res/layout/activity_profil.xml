@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="@dimen/dim1"
+    android:paddingLeft="@dimen/dim2"
+    android:paddingRight="@dimen/dim2"
+    android:paddingTop="@dimen/dim1"
+    tools:context="com.example.ali2nat.v1.ProfilActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="@dimen/dim1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/dim2"
+            android:layout_margin="@dimen/dim1">
+
+            <com.example.ali2nat.v1.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_width="@dimen/image_circle_profil"
+                android:layout_height="@dimen/image_circle_profil"
+                android:src="@drawable/profile"
+                app:civ_border_width="3dp"
+                app:civ_border_color="#FFD89A1F"
+                android:layout_gravity="center_horizontal"
+
+               />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/dim2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_middle"
+                    android:text="Nom de l'intervenant"
+                    android:id="@+id/tvNom" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_middle"
+                    android:text="Adresse de l'intervenant"
+                    android:id="@+id/tvAdresse" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_middle"
+                    android:text="Type de l'intervenant"
+                    android:id="@+id/tvType" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            >
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lvPeriode"
+                android:layout_margin="@dimen/dim1"
+                android:layout_weight="1"/>
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lvStat"
+                android:layout_margin="@dimen/dim1"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

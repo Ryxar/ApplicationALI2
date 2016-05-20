@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_profil"
+            android:icon="@drawable/ic_menu_profil"
+            android:title="Mon Profil"
+            />
+        <item
+            android:id="@+id/nav_salles"
+            android:icon="@drawable/ic_menu_salles"
+            android:title="Mes Salles" />
+        <item
+            android:id="@+id/nav_planning"
+            android:icon="@drawable/ic_menu_planning"
+            android:title="Mon Planning"/>
+        <!--<item
+            android:id="@+id/nav_salle_act"
+            android:icon="@drawable/ic_menu_planning"
+            android:title="Mes Salles (activity)"/>
+
+        <item
+            android:id="@+id/nav_prof_act"
+            android:icon="@drawable/ic_menu_planning"
+            android:title="Mon profil (activity)"/>-->
+
+    </group>
+
+   <!-- <item android:title="Autorisation Spéciales">
+        <menu>
+            <item
+                android:id="@+id/nav_gestion"
+                android:icon="@drawable/ic_menu_gestion"
+                android:title="Gestion de planning" />
+
+        </menu>
+    </item>-->
+
+</menu>
