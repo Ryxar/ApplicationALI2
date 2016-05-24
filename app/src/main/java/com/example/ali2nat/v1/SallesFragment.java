@@ -60,6 +60,16 @@ public class SallesFragment extends Fragment {
             }
         });
 
+        mListPref.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast toast = Toast.makeText(getActivity(),"salle n#" +position, Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
+
+        
+
         return v;
     }
 
