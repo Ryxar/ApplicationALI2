@@ -14,21 +14,36 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.ali2nat.v1.Modele.Profil;
+import com.example.ali2nat.v1.Modele.Salle;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     NavigationView navigationView=null;
     Toolbar toolbar=null;
 
-    Profil profil;
+
+    // Profil de l'utilisateur
+    Profil profil ;//= new Profil("Hubert Bonnisseur de la batte", 1);
+    // Liste des salles de l'utilisateur
+    ArrayList<Salle> mesSalles;
+    // Liste des salles (tout)
+    ArrayList<Salle> lesSalles;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MainFragment fragment=new MainFragment();
+
+        profil = (Profil) getIntent().getSerializableExtra("profil");
+        Toast toast = Toast.makeText(this,profil.getNom(), Toast.LENGTH_LONG);
+        toast.show();
+        MainFragment fragment= MainFragment.newInstance(profil);
         android.support.v4.app.FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container,fragment);
         fragmentTransaction.commit();
@@ -36,7 +51,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         // Initialisation du profil
-        profil = new Profil("Hubert Bonnisseur de la batte", 1);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -88,8 +103,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profil) {
-            MainFragment fragment=new MainFragment();
+            MainFragment fragment;
+
+                 fragment = MainFragment.newInstance(profil);
+
+                 //fragment = new MainFragment();
+
             android.support.v4.app.FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
+
             fragmentTransaction.replace(R.id.fragment_container,fragment);
             fragmentTransaction.commit();
 

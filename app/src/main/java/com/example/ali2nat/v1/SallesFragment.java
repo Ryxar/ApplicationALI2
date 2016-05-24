@@ -47,7 +47,7 @@ public class SallesFragment extends Fragment {
 
         // on gère les adapteurs
         SalleAdapteur adapteurPref = new SalleAdapteur(getActivity(), sallesPref);
-        SalleAdapteur adapteurGlob = new SalleAdapteur(getActivity(), sallesGlob);
+        final SalleAdapteur adapteurGlob = new SalleAdapteur(getActivity(), sallesGlob);
 
         mListSalle.setAdapter(adapteurGlob);
         mListPref.setAdapter(adapteurPref);
@@ -55,6 +55,7 @@ public class SallesFragment extends Fragment {
         mListSalle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Salle salle = adapteurGlob.getItem(position);
                 Toast toast = Toast.makeText(getActivity(),"salle n#" +position, Toast.LENGTH_LONG);
                 toast.show();
             }
@@ -68,7 +69,7 @@ public class SallesFragment extends Fragment {
             }
         });
 
-        
+
 
         return v;
     }

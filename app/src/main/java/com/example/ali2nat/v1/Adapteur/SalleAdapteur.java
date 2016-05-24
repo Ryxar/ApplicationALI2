@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ali2nat.v1.Modele.Salle;
 import com.example.ali2nat.v1.R;
@@ -54,6 +55,7 @@ public class SalleAdapteur extends ArrayAdapter<Salle>{
         viewHolder.tvAdresse.setText(salle.getAdresse());
         // si la salle est a ajouter
         viewHolder.bAjout.setText("v");
+
         // sinon
         // viewHolder.bAjout.setText("x");
 

@@ -26,10 +26,23 @@ import java.util.List;
 public class MainFragment extends Fragment {
 
     private ListView lvPeriode, lvStat;
+    private static final String PROFIL_KEY = "profil_key";
+    private Profil profil;
     private List<Periode> lPeriode;
     private List<Statistique> lStats;
+
+    private TextView tvNom, tvAdresse, tvType;
     public MainFragment() {
         // Required empty public constructor
+    }
+
+    public static MainFragment newInstance(Profil profil){
+        MainFragment fragment  = new MainFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(PROFIL_KEY, profil);
+        fragment.setArguments(bundle);
+
+        return fragment;
     }
 
 
@@ -37,6 +50,8 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        profil = (Profil) getArguments().getSerializable(PROFIL_KEY);
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
         lvPeriode = (ListView) v.findViewById(R.id.lvPeriode);
@@ -44,6 +59,16 @@ public class MainFragment extends Fragment {
 
         lPeriode = new ArrayList();
         lStats = new ArrayList();
+
+        tvNom = (TextView )v.findViewById(R.id.tvNom);
+        tvAdresse =  (TextView )v.findViewById(R.id.tvAdresse);
+        tvType = (TextView )v.findViewById(R.id.tvType);
+
+
+        tvNom.setText(profil.getNom());
+        tvAdresse.setText(profil.getAdresse());
+        tvType.setText(profil.typeString());
+
 
         genererPeriode();
         genererStat();

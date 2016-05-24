@@ -14,6 +14,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;*/
 
+import com.example.ali2nat.v1.Modele.Profil;
+
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -31,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     final private String serveraddress="192.168.0.2";
     //private SigninActivity SA;
 
+    private Profil profil;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,9 @@ public class LoginActivity extends AppCompatActivity {
         passwordField = (EditText)findViewById(R.id.editText2);
         //Check if user already register
 
+        // on initialise le profil
+        profil = new Profil("Hubert Bonnisseur de la batte", 1);
+
     }
 
 
@@ -48,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     public void login(View view){
         //When Button Login Click
         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+        intent.putExtra("profil", profil);
         startActivity(intent);
         finish();
 

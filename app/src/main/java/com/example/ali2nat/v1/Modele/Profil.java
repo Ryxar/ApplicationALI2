@@ -1,11 +1,12 @@
 package com.example.ali2nat.v1.Modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Alexis Pentori on 09/05/2016.
  */
-public class Profil {
+public class Profil implements Serializable {
     private String nom;
     private int type; // 1=ambassadeur, 2=animateur, 3=gestionnaire
     private String adresse; // Pour enregistrer l'adresse de référence du profil
@@ -17,7 +18,26 @@ public class Profil {
         this.type = type;
     }
 
+    public String typeString()
+    {
+        String type_u;
+        switch (type){
+            case 1:
+                type_u = "ambassadeur";
+                break;
+            case 2:
+                type_u="animateur";
+                break;
+            case 3 :
+                type_u = "gestionnaire";
+                break;
+            default :
+                type_u="no type";
+                break;
 
+        }
+        return type_u;
+    }
     // GETTER && SETTER
 
     public String getNom() {
