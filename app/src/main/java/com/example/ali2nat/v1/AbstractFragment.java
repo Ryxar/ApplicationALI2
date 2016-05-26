@@ -94,8 +94,8 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
         });
     }
 
-    protected String getEventTitle(Calendar time) {
-        return String.format("Event of %02d:%02d %s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH)+1, time.get(Calendar.DAY_OF_MONTH));
+    protected String getEventTitle(Calendar time,String info) {
+        return String.format(info, time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH)+1, time.get(Calendar.DAY_OF_MONTH));
     }
 
     @Override
@@ -121,6 +121,7 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
                 new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
+
                         // Do nothing but close the dialog
                     }
                 });
