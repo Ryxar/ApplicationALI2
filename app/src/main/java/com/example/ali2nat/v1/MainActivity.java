@@ -1,11 +1,7 @@
 package com.example.ali2nat.v1;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -82,6 +78,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -91,6 +89,7 @@ public class MainActivity extends AppCompatActivity
         /*if (id == R.id.action_settings) {
             return true;
         }*/
+
 
         return super.onOptionsItemSelected(item);
     }

@@ -3,9 +3,7 @@ package com.example.ali2nat.v1;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -26,7 +24,7 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
     private static final int TYPE_DAY_VIEW = 1;
     private static final int TYPE_THREE_DAY_VIEW = 2;
     private static final int TYPE_WEEK_VIEW = 3;
-    private int mWeekViewType = TYPE_THREE_DAY_VIEW;
+    private int mWeekViewType ;
     private WeekView mWeekView;
 
     public AbstractFragment() {
@@ -39,8 +37,10 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
                              Bundle savedInstanceState) {
         View vp = inflater.inflate(R.layout.fragment_planning, container, false);
 
+
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) vp.findViewById(R.id.weekView);
+        mWeekView.setNumberOfVisibleDays(7);
         // Show a toast message about the touched event.
         mWeekView.setOnEventClickListener(this);
 
@@ -63,60 +63,6 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
         // Inflate the layout for this fragment
         return vp;
     }
-
-
-
-
-
-
-
- public boolean onOptionsItemSelected(MenuItem item) {
-    int id = item.getItemId();
-    setupDateTimeInterpreter(id == R.id.action_week_view);
-    switch (id){
-        case R.id.action_today:
-            mWeekView.goToToday();
-            return true;
-        case R.id.action_day_view:
-            if (mWeekViewType != TYPE_DAY_VIEW) {
-                item.setChecked(!item.isChecked());
-                mWeekViewType = TYPE_DAY_VIEW;
-                mWeekView.setNumberOfVisibleDays(1);
-
-                // Lets change some dimensions to best fit the view.
-                mWeekView.setColumnGap((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
-                mWeekView.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
-                mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
-            }
-            return true;
-        case R.id.action_three_day_view:
-            if (mWeekViewType != TYPE_THREE_DAY_VIEW) {
-                item.setChecked(!item.isChecked());
-                mWeekViewType = TYPE_THREE_DAY_VIEW;
-                mWeekView.setNumberOfVisibleDays(3);
-
-                // Lets change some dimensions to best fit the view.
-                mWeekView.setColumnGap((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
-                mWeekView.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
-                mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
-            }
-            return true;
-        case R.id.action_week_view:
-            if (mWeekViewType != TYPE_WEEK_VIEW) {
-                item.setChecked(!item.isChecked());
-                mWeekViewType = TYPE_WEEK_VIEW;
-                mWeekView.setNumberOfVisibleDays(7);
-
-                // Lets change some dimensions to best fit the view.
-                mWeekView.setColumnGap((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics()));
-                mWeekView.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics()));
-                mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics()));
-            }
-            return true;
-    }
-
-    return super.onOptionsItemSelected(item);
-}
 
     /**
      * Set up a date time interpreter which will show short date values when in week view and long
