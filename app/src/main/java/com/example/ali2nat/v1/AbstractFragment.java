@@ -1,8 +1,10 @@
 package com.example.ali2nat.v1;
 
+import android.content.DialogInterface;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,17 +100,85 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
-        Toast.makeText(getActivity(), "Clicked " + event.getName(), Toast.LENGTH_SHORT).show();
+        showPopUpInfo();
     }
 
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
-        Toast.makeText(getActivity(), "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
+        showPopUpSuppr();
     }
 
     @Override
     public void onEmptyViewLongPress(Calendar time) {
-        Toast.makeText(getActivity(), "Empty view long pressed: " + getEventTitle(time), Toast.LENGTH_SHORT).show();
+        showPopUpAjout();
+    }
+    private void showPopUpSuppr() {
+
+        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(getContext());
+        helpBuilder.setTitle("Titre du cour");
+        helpBuilder.setMessage("Voulez-vous supprimer ce cour ?");
+        helpBuilder.setPositiveButton("Supprimer",
+                new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing but close the dialog
+                    }
+                });
+
+        helpBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing
+            }
+        });
+
+        // Remember, create doesn't show the dialog
+        AlertDialog helpDialog = helpBuilder.create();
+        helpDialog.show();
+    }
+    private void showPopUpInfo() {
+
+        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(getContext());
+        helpBuilder.setTitle("Titre du cour");
+        helpBuilder.setMessage("Info sur le cour ");
+
+        helpBuilder.setNeutralButton("Retour", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing
+            }
+        });
+
+        // Remember, create doesn't show the dialog
+        AlertDialog helpDialog = helpBuilder.create();
+        helpDialog.show();
+    }
+    private void showPopUpAjout() {
+
+        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(getContext());
+        helpBuilder.setTitle("Formulaire d'ajout");
+        helpBuilder.setMessage("etc");
+        helpBuilder.setPositiveButton("Ajouter",
+                new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing but close the dialog
+                    }
+                });
+
+        helpBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing
+            }
+        });
+
+        // Remember, create doesn't show the dialog
+        AlertDialog helpDialog = helpBuilder.create();
+        helpDialog.show();
     }
 
     public WeekView getWeekView() {
