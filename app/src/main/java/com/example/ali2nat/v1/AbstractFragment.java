@@ -75,7 +75,7 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
             public String interpretDate(Calendar date) {
                 SimpleDateFormat weekdayNameFormat = new SimpleDateFormat("EEE", Locale.getDefault());
                 String weekday = weekdayNameFormat.format(date.getTime());
-                SimpleDateFormat format = new SimpleDateFormat(" M/d", Locale.getDefault());
+                SimpleDateFormat format = new SimpleDateFormat("d/M", Locale.getDefault());
 
                 // All android api level do not have a standard way of getting the first letter of
                 // the week day name. Hence we get the first char programmatically.
@@ -87,7 +87,7 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
 
             @Override
             public String interpretTime(int hour) {
-                return hour > 11 ? (hour - 12) + " PM" : (hour == 0 ? "12 AM" : hour + " AM");
+                return hour > 24 ? (hour) + "H" : (hour == 0 ? "0H" : hour + "H");
             }
         });
     }
