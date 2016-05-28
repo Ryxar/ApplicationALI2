@@ -100,7 +100,7 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
-        showPopUpInfo();
+        mWeekView.setcurrX(500);
     }
 
     @Override

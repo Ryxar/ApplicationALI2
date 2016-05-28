@@ -32,6 +32,7 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.OverScroller;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -154,7 +155,7 @@ public class WeekView extends View {
     private DateTimeInterpreter mDateTimeInterpreter;
     private ScrollListener mScrollListener;
 
-    private final GestureDetector.SimpleOnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
+    public final GestureDetector.SimpleOnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
 
         @Override
         public boolean onDown(MotionEvent e) {
@@ -212,6 +213,13 @@ public class WeekView extends View {
             }
             return true;
         }
+
+
+        public void BougeBouge() {
+            mCurrentOrigin.x-= 500;
+        }
+
+
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -629,10 +637,19 @@ public class WeekView extends View {
 
         // Iterate through each day.
         Calendar oldFirstVisibleDay = mFirstVisibleDay;
+
         mFirstVisibleDay = (Calendar) today.clone();
         mFirstVisibleDay.add(Calendar.DATE, -(Math.round(mCurrentOrigin.x / (mWidthPerDay + mColumnGap))));
+        if(oldFirstVisibleDay !=null){
+            int oldday=oldFirstVisibleDay.get(Calendar.DAY_OF_MONTH);
+            mFirstVisibleDay.add(Calendar.DAY_OF_MONTH,oldday-7);
+        }
+
+
+
+
         if(!mFirstVisibleDay.equals(oldFirstVisibleDay) && mScrollListener != null){
-            mScrollListener.onFirstVisibleDayChanged(mFirstVisibleDay, oldFirstVisibleDay);
+            goToDate(oldFirstVisibleDay);
         }
         for (int dayNumber = leftDaysWithGaps + 1;
              dayNumber <= leftDaysWithGaps + mNumberOfVisibleDays + 1;
@@ -1886,6 +1903,7 @@ public class WeekView extends View {
         }
     }
 
+
     /**
      * Check if scrolling should be stopped.
      * @return true if scrolling should be stopped before reaching the end of animation.
@@ -2018,6 +2036,7 @@ public class WeekView extends View {
          * Triggered when the users clicks on a empty space of the calendar.
          * @param time: {@link Calendar} object set with the date and time of the clicked position on the view.
          */
+
         void onEmptyViewClicked(Calendar time);
     }
 
@@ -2026,6 +2045,8 @@ public class WeekView extends View {
          * Similar to {@link com.alamkanak.weekview.WeekView.EmptyViewClickListener} but with long press.
          * @param time: {@link Calendar} object set with the date and time of the long pressed position on the view.
          */
+
+
         void onEmptyViewLongPress(Calendar time);
     }
 
@@ -2039,4 +2060,5 @@ public class WeekView extends View {
          */
         void onFirstVisibleDayChanged(Calendar newFirstVisibleDay, Calendar oldFirstVisibleDay);
     }
+    public void setcurrX(int décalage){mCurrentOrigin.x-=décalage;}
 }
