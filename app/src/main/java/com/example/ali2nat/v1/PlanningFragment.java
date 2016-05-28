@@ -116,23 +116,12 @@ public class PlanningFragment extends AbstractFragment   {
             event.setColor(getResources().getColor(R.color.event_color_01));
             events.add(event);
 
-            startTime = Calendar.getInstance();
-            startTime.set(Calendar.DAY_OF_MONTH, startTime.getActualMaximum(Calendar.DAY_OF_MONTH));
-            startTime.set(Calendar.HOUR_OF_DAY, 15);
-            startTime.set(Calendar.MINUTE, 0);
-            startTime.set(Calendar.MONTH, newMonth-1);
-            startTime.set(Calendar.YEAR, newYear);
-            endTime = (Calendar) startTime.clone();
-            endTime.add(Calendar.HOUR_OF_DAY, 3);
-            event = new WeekViewEvent(5, getEventTitle(startTime,info), startTime, endTime);
-            event.setColor(getResources().getColor(R.color.event_color_02));
-            events.add(event);
-            /* Génération auto
+            // Faire une boucle avec le Json
             for (int i = 0; i < 10; i++) {
-            String info="Cour d'intensité HARDCORE";
+                info="Cours d'intensité repeat";
                 startTime = Calendar.getInstance();
-                startTime.set(Calendar.DAY_OF_MONTH, startTime.getActualMaximum(Calendar.DAY_OF_MONTH));
-                startTime.set(Calendar.HOUR_OF_DAY, 15);
+                startTime.set(Calendar.DAY_OF_MONTH, 1+i);
+                startTime.set(Calendar.HOUR_OF_DAY, 15-decalage);
                 startTime.set(Calendar.MINUTE, 0);
                 startTime.set(Calendar.MONTH, newMonth-1);
                 startTime.set(Calendar.YEAR, newYear);
@@ -141,7 +130,7 @@ public class PlanningFragment extends AbstractFragment   {
                 event = new WeekViewEvent(5, getEventTitle(startTime,info), startTime, endTime);
                 event.setColor(getResources().getColor(R.color.event_color_02));
                 events.add(event);
-            }*/
+            }
 
 
 

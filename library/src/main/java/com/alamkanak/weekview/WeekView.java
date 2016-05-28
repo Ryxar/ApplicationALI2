@@ -121,7 +121,7 @@ public class WeekView extends View {
     private int mNowLineColor = Color.rgb(102, 102, 102);
     private int mNowLineThickness = 5;
     private int mHourSeparatorColor = Color.rgb(230, 230, 230);
-    private int mTodayBackgroundColor = Color.rgb(239, 247, 254);
+    private int mTodayBackgroundColor = Color.rgb(245, 245, 245);
     private int mHourSeparatorHeight = 2;
     private int mTodayHeaderTextColor = Color.rgb(39, 137, 228);
     private int mEventTextSize = 12;
