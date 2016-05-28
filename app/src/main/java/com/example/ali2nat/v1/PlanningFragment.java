@@ -26,11 +26,12 @@ public class PlanningFragment extends AbstractFragment   {
         public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
             // Populate the week view with some events.
             List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
+            int decalage=7;
 
 
-            String info="Cour d'intensité HARDCORE";
+            String info="Cours d'intensité HARDCORE";
             Calendar startTime = Calendar.getInstance();
-            startTime.set(Calendar.HOUR_OF_DAY, 3);
+            startTime.set(Calendar.HOUR_OF_DAY, 7-decalage);
             startTime.set(Calendar.MINUTE, 0);
             startTime.set(Calendar.MONTH, newMonth - 1);
             startTime.set(Calendar.YEAR, newYear);
