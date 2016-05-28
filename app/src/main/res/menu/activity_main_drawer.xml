@@ -16,12 +16,12 @@
             android:id="@+id/nav_planning"
             android:icon="@drawable/ic_menu_planning"
             android:title="Mon Planning"/>
-        <!--<item
+        <item
             android:id="@+id/nav_salle_act"
-            android:icon="@drawable/ic_menu_planning"
+            android:icon="@drawable/ic_menu_salles"
             android:title="Mes Salles (activity)"/>
 
-        <item
+        <!--<item
             android:id="@+id/nav_prof_act"
             android:icon="@drawable/ic_menu_planning"
             android:title="Mon profil (activity)"/>-->
