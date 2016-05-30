@@ -16,15 +16,19 @@ import com.example.ali2nat.v1.Modele.Salle;
 import com.example.ali2nat.v1.R;
 import com.example.ali2nat.v1.ViewHolder.SalleViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Alexis Pentori on 09/05/2016.
  */
 public class SalleAdapteur extends ArrayAdapter<Salle>{
+    private List<Salle> liste;
 
     public SalleAdapteur(Context context, List<Salle> listes){
         super(context, 0 ,listes);
+        liste = new ArrayList<>();
+        liste = listes;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
@@ -35,6 +39,7 @@ public class SalleAdapteur extends ArrayAdapter<Salle>{
             // charge un layout xml en objet view
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.liste_salle_detail, parent, false);
         }
+
 
         SalleViewHolder viewHolder = (SalleViewHolder) convertView.getTag();
         if(viewHolder == null){
@@ -56,9 +61,18 @@ public class SalleAdapteur extends ArrayAdapter<Salle>{
         // si la salle est a ajouter
         viewHolder.bAjout.setText("v");
 
-        // sinon
-        // viewHolder.bAjout.setText("x");
+        viewHolder.bAjout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
 
+
+            }
+        });
         return convertView;
     }
+
+    public Salle getItem(int position) {
+        return liste.get(position);
+    }
+
+
 }

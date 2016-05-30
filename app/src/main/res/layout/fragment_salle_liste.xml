@@ -1,33 +1,28 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.ali2nat.v1.Salle.ListeSalleFragment">
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/colorPrimary"
         android:layout_marginTop="@dimen/dim1"
         android:paddingTop="@dimen/half_dim"
-        android:layout_alignParentStart="true">
-
+        android:background="@color/colorPrimary">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mes Salles préférés :"
+            android:id="@+id/tvTitre"
+            android:text="Mes Salles chaudes dans ma région :"
             android:textSize="@dimen/text_size_major"
             android:textStyle="bold"/>
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/list_salle"
-            android:background="@color/white"
+            android:id="@+id/listSalle"
+            android:background="@color/fond"
             android:layout_margin="@dimen/dim1"></ListView>
-
-
     </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>

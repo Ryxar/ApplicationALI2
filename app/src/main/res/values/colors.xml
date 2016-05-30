@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6276e2</color>
-    <color name="colorPrimaryDark">#303f9f</color>
+    <color name="colorPrimary">#3c8dbc</color>
+    <color name="colorPrimaryDark">#3c8dbc</color>
     <color name="colorAccent">#FF4081</color>
     <color name="white">#FFFFFF</color>
     <color name="yellow">#fd9e05</color>
@@ -13,4 +13,5 @@
     <color name="event_color_02">#f57f68</color>
     <color name="event_color_03">#87d288</color>
     <color name="event_color_04">#f8b552</color>
+    <color name="fond">#ecf0f5</color>
 </resources>

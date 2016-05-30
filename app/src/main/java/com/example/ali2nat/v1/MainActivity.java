@@ -136,10 +136,10 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, SalleActivity.class);
             startActivity(intent);
 
-        }/* else if(id == R.id.nav_prof_act){
+        }else if(id == R.id.nav_prof_act){
             Intent intent = new Intent(this, ProfilActivity.class);
             startActivity(intent);
-        }*/
+        }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

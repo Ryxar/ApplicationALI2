@@ -78,22 +78,24 @@
                 <ListView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/listSalleGlob"
+                    android:id="@+id/listSallePref"
                     android:background="@color/white"
                     android:layout_margin="@dimen/dim1"></ListView>
             </LinearLayout>
-
-            <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-                <fragment
-                    android:name="com.example.ali2nat.v1.Salle.ListeSalleFragment"
+                <fragment android:name="com.example.ali2nat.v1.Salle.SalleListeFragment"
+                    android:id="@+id/list"
+
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    </fragment>
 
-            </FrameLayout>
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+
         </LinearLayout>
 
     </LinearLayout>
