@@ -27,7 +27,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Sélectionner des salles :"
+                    android:text="SÃ©lectionner des salles :"
                     android:id="@+id/tVSelecSalles"
                     />
 
@@ -72,7 +72,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mes Salles chaudes dans ma région :"
+                    android:text="Mes Salles chaudes dans ma rÃ©gion :"
                     android:textSize="@dimen/text_size_major"
                     android:textStyle="bold"/>
                 <ListView
@@ -85,14 +85,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:id="@+id/list">
 
-                <fragment android:name="com.example.ali2nat.v1.Salle.SalleListeFragment"
-                    android:id="@+id/list"
+                <!-- <fragment android:name="com.example.ali2nat.v1.Salle.SalleListeFragment"
+                     android:id="@+id/list"
 
-                    android:layout_width="match_parent"
+                     android:layout_width="match_parent"
 
-                    android:layout_height="match_parent" />
+                     android:layout_height="match_parent" />-->
             </LinearLayout>
 
 

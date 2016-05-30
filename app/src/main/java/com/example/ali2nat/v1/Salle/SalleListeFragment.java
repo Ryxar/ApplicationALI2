@@ -46,20 +46,22 @@ public class SalleListeFragment extends Fragment {
         return salleListeFragment;
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_salle_liste, container, false);
         Intent i = getActivity().getIntent();
-        Bundle bundle = this.getArguments();
 
         salles = new ArrayList<>();
-        salles = savedInstanceState.getParcelable(SalleActivity.SALLES_KEY);
-        /*
-        int taille = bundle.getInt(SalleActivity.SALLES_KEY);
-        for (int t = 0; t< taille; t++){
-            salles.add((Salle) bundle.getSerializable(SalleActivity.SALLES_NUM_KEY + t));
-        }*/
+        //salles = savedInstanceState.getParcelable(SalleActivity.SALLES_KEY);
+
+
+        Bundle bundle = this.getArguments();
+        int taille = bundle.getInt("NB_SALLES");
+        for (int t = 0; t< taille; t++)
+            salles.add((Salle) bundle.getParcelable("SALLE_ID" + t));
+
 
         tvTitre = (TextView) v.findViewById(R.id.tvTitre);
         lvSalle = (ListView) v.findViewById(R.id.listSalle);

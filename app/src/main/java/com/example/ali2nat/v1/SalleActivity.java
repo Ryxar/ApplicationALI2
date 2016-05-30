@@ -38,9 +38,14 @@ public class SalleActivity extends AppCompatActivity {
         genererSallesPref();
         genererSalles();
 
+
         // on rempli le bundle pour envoyer les infos
         Bundle bundle = new Bundle();
-         bundle.putParcelableArrayList(SALLES_KEY, salles);
+        bundle.putInt("NB_SALLES", salles.size());
+        for (int i = 0 ; i < salles.size() ; i++)
+            bundle.putParcelable("SALLE_ID" + i, salles.get(i));
+
+        //bundle.putParcelableArrayList(SALLES_KEY, salles);
 
         // Create new fragment and transaction
 
@@ -53,9 +58,8 @@ public class SalleActivity extends AppCompatActivity {
         // and add the transaction to the back stack
         transaction.replace(R.id.list, newFragment);
         transaction.addToBackStack(null);
-
         // Commit the transaction
-                transaction.commit();
+        transaction.commit();
 
 
 
