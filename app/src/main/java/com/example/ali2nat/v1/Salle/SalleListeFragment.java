@@ -33,6 +33,7 @@ public class SalleListeFragment extends Fragment {
 
     // objet
     private ArrayList<Salle> salles;
+    private boolean recherche;
 
     public SalleListeFragment() {
         // Required empty public constructor
@@ -54,10 +55,12 @@ public class SalleListeFragment extends Fragment {
         Intent i = getActivity().getIntent();
 
         salles = new ArrayList<>();
-        //salles = savedInstanceState.getParcelable(SalleActivity.SALLES_KEY);
+        recherche = false;
 
 
         Bundle bundle = this.getArguments();
+        recherche = bundle.getBoolean("NATURE");
+
         int taille = bundle.getInt("NB_SALLES");
         for (int t = 0; t< taille; t++)
             salles.add((Salle) bundle.getParcelable("SALLE_ID" + t));
@@ -65,8 +68,13 @@ public class SalleListeFragment extends Fragment {
 
         tvTitre = (TextView) v.findViewById(R.id.tvTitre);
         lvSalle = (ListView) v.findViewById(R.id.listSalle);
+        if(recherche){
+            tvTitre.setText("Résultat de la recherche");
+        }
+        else{
+            tvTitre.setText("Vos salles préférées");
+        }
 
-        tvTitre.setText("Résultat de la recherche");
 
 
         //genererSalles();
