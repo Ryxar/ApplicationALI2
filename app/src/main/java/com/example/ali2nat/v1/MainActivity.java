@@ -1,6 +1,7 @@
 package com.example.ali2nat.v1;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -131,14 +132,14 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container,fragment);
             fragmentTransaction.commit();
 
-        } else if(id == R.id.nav_salle_act){
+        } */else if(id == R.id.nav_salle_act){
             Intent intent = new Intent(this, SalleActivity.class);
             startActivity(intent);
 
-        } else if(id == R.id.nav_prof_act){
+        }else if(id == R.id.nav_prof_act){
             Intent intent = new Intent(this, ProfilActivity.class);
             startActivity(intent);
-        }*/
+        }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

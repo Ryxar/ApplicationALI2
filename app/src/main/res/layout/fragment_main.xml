@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/dim2"
     android:paddingRight="@dimen/dim2"
     android:paddingTop="@dimen/dim6"
+    android:background="@color/fond"
     tools:context="com.example.ali2nat.v1.ProfilActivity">
 
     <LinearLayout
@@ -25,7 +26,8 @@
             android:layout_gravity="center_horizontal"
             android:background="@color/colorPrimary"
             android:padding="@dimen/dim2"
-            android:layout_margin="@dimen/dim1">
+            android:layout_margin="@dimen/dim1"
+            >
 
             <com.example.ali2nat.v1.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"

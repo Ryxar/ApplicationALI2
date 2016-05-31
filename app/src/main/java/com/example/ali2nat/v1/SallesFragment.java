@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SallesFragment extends Fragment {
+public class SallesFragment extends Fragment  implements AdapterView.OnItemClickListener {
     private ListView mListSalle, mListPref;
     private List<Salle> sallesPref, sallesGlob;
 
@@ -61,18 +61,17 @@ public class SallesFragment extends Fragment {
             }
         });
 
-        mListPref.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast toast = Toast.makeText(getActivity(),"salle n#" +position, Toast.LENGTH_LONG);
-                toast.show();
-            }
-        });
+
+        //mListPref.setOnClickListener(this);
+
+
 
 
 
         return v;
     }
+
+
 
 
     private void genererSallesPref() {
@@ -89,4 +88,10 @@ public class SallesFragment extends Fragment {
 
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast toast = Toast.makeText(getActivity(),"salle n#" +position, Toast.LENGTH_LONG);
+        toast.show();
+
+    }
 }

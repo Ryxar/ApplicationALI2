@@ -9,27 +9,51 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
+
 
         <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:id="@+id/linearLayout">
+            android:layout_height="match_parent">
+
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:id="@+id/llSallePref">
+
+                <!-- <fragment android:name="com.example.ali2nat.v1.Salle.SalleListeFragment"
+                     android:id="@+id/list"
+
+                     android:layout_width="match_parent"
+
+                     android:layout_height="match_parent" />-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:orientation="vertical"
                 android:layout_margin="@dimen/dim1"
-                android:background="#ffffff">
+                android:background="@color/fond"
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Sélectionner des salles :"
+                    android:text="Faire une recherche :"
+
                     android:id="@+id/tVSelecSalles"
-                    />
+                    android:textStyle="bold"
+                    android:layout_gravity="center" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -52,59 +76,24 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/seekBarSalles" />
             </LinearLayout>
-        </LinearLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:layout_marginTop="@dimen/dim1"
-                android:paddingTop="@dimen/half_dim"
-                android:layout_alignParentStart="true">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mes Salles préférés :"
-                    android:textSize="@dimen/text_size_major"
-                    android:textStyle="bold"/>
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/listPref"
-                    android:background="@color/white"
-                    android:layout_margin="@dimen/dim1"></ListView>
-
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginTop="@dimen/dim1"
-                android:paddingTop="@dimen/half_dim"
-                android:background="@color/colorPrimary">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mes Salles chaudes dans ma région :"
-                    android:textSize="@dimen/text_size_major"
-                    android:textStyle="bold"/>
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/listSalleGlob"
-                    android:background="@color/white"
-                    android:layout_margin="@dimen/dim1"></ListView>
+                android:id="@+id/llSalleRech">
+
+                <!-- <fragment android:name="com.example.ali2nat.v1.Salle.SalleListeFragment"
+                     android:id="@+id/list"
+
+                     android:layout_width="match_parent"
+
+                     android:layout_height="match_parent" />-->
             </LinearLayout>
+
+
         </LinearLayout>
 
     </LinearLayout>
