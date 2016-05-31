@@ -86,7 +86,7 @@ public class SalleListeFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Log.d("y", "onItemClick: ");
-                Toast.makeText((),
+                Toast.makeText((getActivity()),
                         "Click ListItem Number " + position, Toast.LENGTH_LONG)
                         .show();
             }

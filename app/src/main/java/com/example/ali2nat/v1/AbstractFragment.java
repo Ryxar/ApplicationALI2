@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
@@ -28,6 +29,7 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
     private static final int TYPE_WEEK_VIEW = 3;
     private int mWeekViewType ;
     private WeekView mWeekView;
+    private Button BtnSemSui;
 
     public AbstractFragment() {
         // Required empty public constructor
@@ -42,6 +44,8 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
 
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) vp.findViewById(R.id.weekView);
+
+
         mWeekView.setNumberOfVisibleDays(7);
         // Show a toast message about the touched event.
         mWeekView.setOnEventClickListener(this);
@@ -65,6 +69,11 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
         // Inflate the layout for this fragment
         return vp;
     }
+    public void SemaineSuiv(){
+
+        mWeekView.setcurrX(mWeekView.getWidth());
+
+}
 
     /**
      * Set up a date time interpreter which will show short date values when in week view and long
@@ -100,7 +109,7 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
-        mWeekView.setcurrX(950);
+        mWeekView.setcurrX(mWeekView.getWidth());
     }
 
     @Override

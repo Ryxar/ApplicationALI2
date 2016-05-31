@@ -10,5 +10,5 @@ public class SalleViewHolder {
 
     public TextView tvNomSalle;
     public TextView tvAdresse;
-    public Button bAjout;
+
 }

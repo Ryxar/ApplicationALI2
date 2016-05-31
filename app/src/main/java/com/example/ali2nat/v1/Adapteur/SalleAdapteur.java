@@ -52,7 +52,7 @@ public class SalleAdapteur extends ArrayAdapter<Salle>{
 
             viewHolder.tvNomSalle = (TextView) convertView.findViewById(R.id.tvNom);
             viewHolder.tvAdresse = (TextView) convertView.findViewById(R.id.tvAdresse);
-            viewHolder.bAjout = (Button)convertView.findViewById(R.id.bAjout);
+
 
             // On sauvegarde le mini controlleur dans la vue
             convertView.setTag(viewHolder);
@@ -62,7 +62,7 @@ public class SalleAdapteur extends ArrayAdapter<Salle>{
         viewHolder.tvNomSalle.setText(salle.getNom());
         viewHolder.tvAdresse.setText(salle.getAdresse());
         // si la salle est a ajouter
-        viewHolder.bAjout.setText("v");
+
 
         return convertView;
     }
