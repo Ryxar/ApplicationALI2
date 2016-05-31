@@ -49,6 +49,7 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
         // Fragment pour les salles préférées
         Log.d("tag", "pref");
         Bundle bundle = genererBundle(false, sallesPref);
+        Log.d("type", "Bundle:  "+bundle);
         // Create new fragment and transaction
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         // on envoit le bundle
@@ -70,6 +71,8 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
         // Create new fragment and transaction
         FragmentTransaction transactionR = getFragmentManager().beginTransaction();
         // on envoit le bundle
+
+        Log.d("type", "Bundle:  "+bundleRech);
         fragRech.setArguments(bundleRech);
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack
@@ -160,6 +163,7 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
 
     private Bundle genererBundle(boolean type, List<Salle> lSalles){
         Bundle bundle = new Bundle();
+        Log.d("type", "type : "+type);
 
         bundle.putBoolean("NATURE", type);
         bundle.putInt("NB_SALLES", lSalles.size());

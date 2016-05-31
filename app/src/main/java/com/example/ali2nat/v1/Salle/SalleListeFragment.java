@@ -44,14 +44,6 @@ public class SalleListeFragment extends Fragment {
     public SalleListeFragment() {
         // Required empty public constructor
     }
-    public static SalleListeFragment newInstance(List<Salle> salles){
-        SalleListeFragment salleListeFragment = new SalleListeFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(SALLES_KEY, (Serializable) salles);
-
-        salleListeFragment.setArguments(bundle);
-        return salleListeFragment;
-    }
 
 
     @Override
@@ -61,10 +53,11 @@ public class SalleListeFragment extends Fragment {
         Intent i = getActivity().getIntent();
 
         salles = new ArrayList<>();
-        recherche = false;
+        //recherche = false;
 
 
         Bundle bundle = this.getArguments();
+
         recherche = bundle.getBoolean("NATURE");
 
         int taille = bundle.getInt("NB_SALLES");
@@ -89,10 +82,8 @@ public class SalleListeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Log.d("y", "onItemClick: ");
-                Toast.makeText((getActivity()),
-                        "Click ListItem Number " + position+1, Toast.LENGTH_LONG)
-                        .show();
+                Log.d("type", "type : " + recherche);
+
 
 
                 mCallback.onArticleSelected(position, recherche);
