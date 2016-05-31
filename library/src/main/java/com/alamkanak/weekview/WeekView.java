@@ -203,7 +203,6 @@ public class WeekView extends View {
             switch (mCurrentScrollDirection) {
                 case LEFT:
                 case RIGHT:
-                    mCurrentOrigin.x -= distanceX * mXScrollingSpeed;
                     ViewCompat.postInvalidateOnAnimation(WeekView.this);
                     break;
                 case VERTICAL:
@@ -214,10 +213,6 @@ public class WeekView extends View {
             return true;
         }
 
-
-        public void BougeBouge() {
-            mCurrentOrigin.x-= 500;
-        }
 
 
 
@@ -238,8 +233,7 @@ public class WeekView extends View {
             switch (mCurrentFlingDirection) {
                 case LEFT:
                 case RIGHT:
-                    mScroller.fling((int) mCurrentOrigin.x, (int) mCurrentOrigin.y, (int) (velocityX * mXScrollingSpeed), 0, Integer.MIN_VALUE, Integer.MAX_VALUE, (int) -(mHourHeight * 24 + mHeaderHeight + mHeaderRowPadding * 2 + mHeaderMarginBottom + mTimeTextHeight / 2 - getHeight()), 0);
-                    break;
+                   break;
                 case VERTICAL:
                     mScroller.fling((int) mCurrentOrigin.x, (int) mCurrentOrigin.y, 0, (int) velocityY, Integer.MIN_VALUE, Integer.MAX_VALUE, (int) -(mHourHeight * 24 + mHeaderHeight + mHeaderRowPadding * 2 + mHeaderMarginBottom + mTimeTextHeight/2 - getHeight()), 0);
                     break;
@@ -644,10 +638,6 @@ public class WeekView extends View {
             int oldday=oldFirstVisibleDay.get(Calendar.DAY_OF_MONTH);
             mFirstVisibleDay.add(Calendar.DAY_OF_MONTH,oldday-7);
         }
-
-
-
-
         if(!mFirstVisibleDay.equals(oldFirstVisibleDay) && mScrollListener != null){
             goToDate(oldFirstVisibleDay);
         }
@@ -2060,5 +2050,7 @@ public class WeekView extends View {
          */
         void onFirstVisibleDayChanged(Calendar newFirstVisibleDay, Calendar oldFirstVisibleDay);
     }
-    public void setcurrX(int décalage){mCurrentOrigin.x-=décalage;}
+    public void setcurrX(int décalage){mCurrentOrigin.x-=décalage;
+        goToNearestOrigin();
+        ViewCompat.postInvalidateOnAnimation(WeekView.this);}
 }

@@ -29,7 +29,7 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
     private static final int TYPE_WEEK_VIEW = 3;
     private int mWeekViewType ;
     private WeekView mWeekView;
-    private Button BtnSemSui;
+    private Button BtnSemSui,BtnSemPrec;
 
     public AbstractFragment() {
         // Required empty public constructor
@@ -44,6 +44,19 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
 
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) vp.findViewById(R.id.weekView);
+        BtnSemSui=(Button)vp.findViewById(R.id.SemaineSuivante);
+        BtnSemPrec=(Button)vp.findViewById(R.id.SemainePrecedente);
+        BtnSemSui.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                SemaineSuiv();
+            }
+        });
+        BtnSemPrec.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                SemainePrec();
+            }
+        });
+
 
 
         mWeekView.setNumberOfVisibleDays(7);
@@ -74,6 +87,10 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
         mWeekView.setcurrX(mWeekView.getWidth());
 
 }
+    public void SemainePrec(){
+
+        mWeekView.setcurrX(-mWeekView.getWidth());
+    }
 
     /**
      * Set up a date time interpreter which will show short date values when in week view and long
@@ -109,7 +126,7 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
-        mWeekView.setcurrX(mWeekView.getWidth());
+       showPopUpInfo();
     }
 
     @Override

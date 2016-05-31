@@ -12,6 +12,12 @@
         android:text="Semaine suivante"
         android:onClick="SemaineSuiv"
         android:layout_alignParentRight="true"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/SemainePrecedente"
+        android:text="Semaine précedente"
+        android:layout_alignParentLeft="true"/>
     <com.alamkanak.weekview.WeekView
         android:layout_marginTop="40dp"
     android:id="@+id/weekView"
