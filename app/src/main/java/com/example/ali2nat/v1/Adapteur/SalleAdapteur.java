@@ -1,8 +1,10 @@
 package com.example.ali2nat.v1.Adapteur;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,11 +34,12 @@ public class SalleAdapteur extends ArrayAdapter<Salle>{
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+        View row = convertView;
         // convertView = nul quand Android nous demande de le créer
         // sinon  il vient d'une vue recyclée
-        if(convertView == null){
-            // on get row_liste via un LayoutInflater,
-            // charge un layout xml en objet view
+        if(row == null){
+           LayoutInflater inflater = ((Activity )getContext()).getLayoutInflater();
+            row = inflater.inflate(R.layout.liste_salle_detail, parent , false);
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.liste_salle_detail, parent, false);
         }
 
@@ -61,12 +64,6 @@ public class SalleAdapteur extends ArrayAdapter<Salle>{
         // si la salle est a ajouter
         viewHolder.bAjout.setText("v");
 
-        viewHolder.bAjout.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-
-            }
-        });
         return convertView;
     }
 

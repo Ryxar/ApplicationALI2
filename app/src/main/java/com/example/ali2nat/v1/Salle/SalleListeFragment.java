@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ali2nat.v1.Adapteur.SalleAdapteur;
 import com.example.ali2nat.v1.Modele.Salle;
@@ -76,25 +78,29 @@ public class SalleListeFragment extends Fragment {
         }
 
 
+        SalleAdapteur adapteur = new SalleAdapteur(getActivity(), salles);
+        lvSalle.setAdapter(adapteur);
 
-        //genererSalles();
-
-        // adapteur
-        try{
-            SalleAdapteur adapteur = new SalleAdapteur(getActivity(), salles);
-            lvSalle.setAdapter(adapteur);
-        }catch(NullPointerException e){
-            Log.d("yolo", "prble adapteur vide");
-        }
-
-
-
-
-
+       lvSalle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Log.d("y", "onItemClick: ");
+                Toast.makeText((),
+                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
+                        .show();
+            }
+        });
 
 
         return v;
     }
+
+    /*@Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        String item = (String) getListAdapter().getItem(position);
+        Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
+    }*/
 
     private void genererSalles() {
         for (int i = 0; i < 10; i++) {
