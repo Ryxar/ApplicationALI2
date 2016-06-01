@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.MonthLoader;
@@ -23,12 +22,11 @@ import java.util.Locale;
 /**
  * Created by Adrien.D on 24/05/2016.
  */
-public abstract class AbstractFragment extends Fragment implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener {
+public abstract class AbstractSemaineFragment extends Fragment implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener {
 
     private WeekView mWeekView;
-    private Button BtnSemSui,BtnSemPrec;
 
-    public AbstractFragment() {
+    public AbstractSemaineFragment() {
         // Required empty public constructor
     }
 
@@ -36,23 +34,11 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vp = inflater.inflate(R.layout.fragment_planning, container, false);
+        View vp = inflater.inflate(R.layout.fragment_semaine_type, container, false);
 
 
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) vp.findViewById(R.id.weekView);
-        BtnSemSui=(Button)vp.findViewById(R.id.SemaineSuivante);
-        BtnSemPrec=(Button)vp.findViewById(R.id.SemainePrecedente);
-        BtnSemSui.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                SemaineSuiv();
-            }
-        });
-        BtnSemPrec.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                SemainePrec();
-            }
-        });
 
 
 

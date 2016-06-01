@@ -128,7 +128,14 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container,fragment);
             fragmentTransaction.commit();
 
-        } /*else if (id == R.id.nav_gestion) {
+        }
+        else if (id == R.id.nav_semaine_type) {
+            SemaineTypeFragment fragment=new SemaineTypeFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container,fragment);
+            fragmentTransaction.commit();
+
+        }/*else if (id == R.id.nav_gestion) {
             GestionFragment fragment=new GestionFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container,fragment);

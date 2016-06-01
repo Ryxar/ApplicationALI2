@@ -17,6 +17,10 @@
             android:icon="@drawable/ic_menu_planning"
             android:title="Mon Planning"/>
         <item
+            android:id="@+id/nav_semaine_type"
+            android:icon="@drawable/ic_menu_planning"
+            android:title="Ma Semaine Type"/>
+        <item
             android:id="@+id/nav_salle_act"
             android:icon="@drawable/ic_menu_salles"
             android:title="Mes Salles (activity)"/>
