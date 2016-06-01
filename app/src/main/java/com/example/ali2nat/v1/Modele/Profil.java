@@ -23,13 +23,13 @@ public class Profil implements Serializable {
         String type_u;
         switch (type){
             case 1:
-                type_u = "ambassadeur";
+                type_u = "Ambassadeur";
                 break;
             case 2:
-                type_u="animateur";
+                type_u="Animateur";
                 break;
             case 3 :
-                type_u = "gestionnaire";
+                type_u = "Gestionnaire";
                 break;
             default :
                 type_u="no type";

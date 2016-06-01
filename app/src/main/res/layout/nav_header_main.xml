@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="#FF3945A7"
+    android:background="@color/colorPrimary"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/dim2"
+    android:paddingLeft="@dimen/dim2"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/dim2"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <com.example.ali2nat.v1.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/profile_image"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="20dp"
+
         android:src="@drawable/profile"
         app:civ_border_width="3dp"
         app:civ_border_color="#FFD89A1F"/>
@@ -25,16 +27,24 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="Grégory Dubois"
+        android:id="@+id/textViewNom"
+        android:layout_marginTop="@dimen/dim2"
+        android:layout_marginLeft="@dimen/dim2"
         android:textStyle="bold"
         android:textColor="#ffffff"
-        android:phoneNumber="false" />
+        android:layout_toRightOf="@+id/profile_image"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewrole"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewNom"
+        android:layout_marginLeft="@dimen/dim2"
+        android:layout_marginTop="@dimen/dim1"
+        android:layout_toRightOf="@+id/profile_image"
         android:text="Administrateur"
+        android:textSize="15dp"
         android:textColor="#ffffff"
-        android:textStyle="bold"/>
+        android:textStyle="italic"/>
 
-</LinearLayout>
+</RelativeLayout>
