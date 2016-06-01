@@ -1,6 +1,7 @@
 package com.example.ali2nat.v1;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,18 +10,23 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
+import com.alamkanak.weekview.WeekView;
+import com.alamkanak.weekview.WeekViewEvent;
 import com.example.ali2nat.v1.Modele.Profil;
 import com.example.ali2nat.v1.Modele.Salle;
+import com.example.ali2nat.v1.Salle.SalleActivity;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private static final String EVENT_KEY = "event_key";
+    private static final String EVENT_NUM_TYPE = "event_";
     NavigationView navigationView=null;
     Toolbar toolbar=null;
 
@@ -31,6 +37,8 @@ public class MainActivity extends AppCompatActivity
     ArrayList<Salle> mesSalles;
     // Liste des salles (tout)
     ArrayList<Salle> lesSalles;
+
+    ArrayList<WeekViewEvent> events;
 
 
     @Override
@@ -130,7 +138,9 @@ public class MainActivity extends AppCompatActivity
 
         }
         else if (id == R.id.nav_semaine_type) {
+            Bundle bundleSemaineType= genererBundlePlanning();
             SemaineTypeFragment fragment=new SemaineTypeFragment();
+            fragment.setArguments(bundleSemaineType);
             android.support.v4.app.FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container,fragment);
             fragmentTransaction.commit();
@@ -154,5 +164,20 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    // Transmission de données au fragment planning
+    public Bundle genererBundlePlanning(){
+
+        Bundle bundle = new Bundle();
+
+
+
+        bundle.putInt(EVENT_KEY, events.size());
+        for (int i = 0 ; i < events.size() ; i++)
+            bundle.putParcelable(EVENT_NUM_TYPE + i, events.get(i));
+
+        return bundle;
     }
 }

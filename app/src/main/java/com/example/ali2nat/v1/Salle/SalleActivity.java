@@ -1,4 +1,4 @@
-package com.example.ali2nat.v1;
+package com.example.ali2nat.v1.Salle;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.ali2nat.v1.Adapteur.SalleAdapteur;
 import com.example.ali2nat.v1.Modele.Salle;
+import com.example.ali2nat.v1.R;
 import com.example.ali2nat.v1.Salle.SalleListeFragment;
 
 import java.io.Serializable;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class SalleActivity extends AppCompatActivity implements SalleListeFragment.OnSalleSelectedListener{
 
-
+    public static final String NATURE_KEY = "nature_key";
     public static final String SALLES_KEY = "salles_key";
     public static final String SALLES_NUM_KEY = "salles_";
 
@@ -48,7 +49,7 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
 
         // Fragment pour les salles préférées
         Log.d("tag", "pref");
-        Bundle bundle = genererBundle(false, sallesPref);
+        Bundle bundle = genererBundle("preferer", sallesPref);
         Log.d("type", "Bundle:  "+bundle);
         // Create new fragment and transaction
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -67,7 +68,7 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
 
         Log.d("tag", "rech");
         // Fragment pour les salles recherché
-        Bundle bundleRech = genererBundle(true, sallesR);
+        Bundle bundleRech = genererBundle("recherche", sallesR);
         // Create new fragment and transaction
         FragmentTransaction transactionR = getFragmentManager().beginTransaction();
         // on envoit le bundle
@@ -87,9 +88,9 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
 
     }
 
-    public void onArticleSelected(int position, boolean type){
+    public void onArticleSelected(int position, String type){
 
-        if(type == true){
+        if(type == "recherche"){
 
             Salle salle = sallesR.get(position);
             sallesPref.add(salle);
@@ -161,14 +162,14 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
 
 
 
-    private Bundle genererBundle(boolean type, List<Salle> lSalles){
+    private Bundle genererBundle(String type, List<Salle> lSalles){
         Bundle bundle = new Bundle();
         Log.d("type", "type : "+type);
 
-        bundle.putBoolean("NATURE", type);
-        bundle.putInt("NB_SALLES", lSalles.size());
+        bundle.putString(NATURE_KEY, type);
+        bundle.putInt(SALLES_KEY, lSalles.size());
         for (int i = 0 ; i < lSalles.size() ; i++)
-            bundle.putParcelable("SALLE_ID" + i, lSalles.get(i));
+            bundle.putParcelable(SALLES_NUM_KEY + i, lSalles.get(i));
 
         return bundle;
     }

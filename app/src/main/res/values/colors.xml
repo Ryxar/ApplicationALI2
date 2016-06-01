@@ -8,10 +8,12 @@
     <color name="red">#e40101</color>
     <color name="gris_claire">#d7d7d7</color>
     <color name="bleu_claire">#c3d4e9</color>
-    <color name="fondTabGlob">#1d9c00</color>
+    <color name="vert">#1d9c00</color>
     <color name="event_color_01">#59dbe0</color>
     <color name="event_color_02">#f57f68</color>
     <color name="event_color_03">#87d288</color>
     <color name="event_color_04">#f8b552</color>
     <color name="fond">#ecf0f5</color>
+    <color name="color_retrait_liste">#80ff8f</color>
+    <color name="color_ajout_liste">#ff7f7b</color>
 </resources>

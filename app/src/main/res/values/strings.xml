@@ -16,4 +16,12 @@
     <string name="title_activity_basic">Basic Example</string>
     <string name="title_activity_asynchronous">Asynchronous Events</string>
     <string name="async_error">Could not download events from the internet</string>
+    <string name="titreDialog_true">Ajout de salle</string>
+    <string name="titreDialog_false">Retrait de salle</string>
+    <string name="textDialog_true">Etes vous sûr de vouloir ajouter cette salle.</string>
+
+    <!-- Resource affichage des Salles -->
+    <string name="liste_salle_rech">Recherche :</string>
+    <string name="liste_salle_pref">Préféréés :</string>
+
 </resources>

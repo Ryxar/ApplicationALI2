@@ -1,26 +1,34 @@
 package com.example.ali2nat.v1.Salle;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
+import android.app.SearchManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ali2nat.v1.Adapteur.SalleAdapteur;
 import com.example.ali2nat.v1.Modele.Salle;
 import com.example.ali2nat.v1.R;
-import com.example.ali2nat.v1.SalleActivity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Alexis on 30/05/2016.
@@ -36,7 +44,7 @@ public class SalleListeFragment extends Fragment {
 
     // objet
     private ArrayList<Salle> salles;
-    private boolean recherche;
+    private String recherche;
 
     // Interface pour le callback vers l'activité
     OnSalleSelectedListener mCallback;
@@ -57,17 +65,18 @@ public class SalleListeFragment extends Fragment {
 
 
         Bundle bundle = this.getArguments();
+         recherche = bundle.getString(SalleActivity.NATURE_KEY);
 
-        recherche = bundle.getBoolean("NATURE");
 
-        int taille = bundle.getInt("NB_SALLES");
+        int taille = bundle.getInt(SalleActivity.SALLES_KEY);
         for (int t = 0; t< taille; t++)
-            salles.add((Salle) bundle.getParcelable("SALLE_ID" + t));
+            salles.add((Salle) bundle.getParcelable(SalleActivity.SALLES_NUM_KEY + t));
 
 
         tvTitre = (TextView) v.findViewById(R.id.tvTitre);
+
         lvSalle = (ListView) v.findViewById(R.id.listSalle);
-        if(recherche){
+        if(recherche == "recherche"){
             tvTitre.setText("Résultat de la recherche");
         }
         else{
@@ -77,16 +86,37 @@ public class SalleListeFragment extends Fragment {
 
         SalleAdapteur adapteur = new SalleAdapteur(getActivity(), salles);
         lvSalle.setAdapter(adapteur);
+        final Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.colorchange);
 
        lvSalle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Log.d("type", "type : " + recherche);
+                final int pos = position;
+                startColorAnimation(view);
+                view.startAnimation(anim);
+                final String titre;
+                final String text ;
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Ajout Salle")
+                        .setMessage("Etes vous sûr de vouloir ajouter cette salle.")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                                mCallback.onArticleSelected(pos, recherche);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
 
 
 
-                mCallback.onArticleSelected(position, recherche);
                 // si recherche = false; on le suprrime de la liste en demandant la confirmation
 
 
@@ -95,8 +125,12 @@ public class SalleListeFragment extends Fragment {
         });
 
 
+
+
         return v;
     }
+
+
 
     @Override
     public void onAttach(Activity activity) {
@@ -112,12 +146,43 @@ public class SalleListeFragment extends Fragment {
         }
     }
 
+    private void startColorAnimation(View v) {
+        int colorStart = v.getSolidColor();
+        int colorEnd =0xFFFF0000;
+        if(recherche == "recherche"){
+            colorEnd = 0xFFFF0000;
+        }
 
-    /*@Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        String item = (String) getListAdapter().getItem(position);
-        Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
-    }*/
+        ValueAnimator colorAnim = ObjectAnimator.ofInt(v,
+                "backgroundColor", colorStart, colorEnd);
+
+        colorAnim.setDuration(2000);
+        colorAnim.setEvaluator(new ArgbEvaluator());
+        colorAnim.setRepeatCount(1);
+        colorAnim.setRepeatMode(ValueAnimator.REVERSE);
+        colorAnim.start();
+
+        colorAnim.start();
+    }
+
+    private void startColorAnimationReverse(View v) {
+        int colorStart = v.getSolidColor();
+        int colorEnd = R.color.vert;
+        if(recherche == "recherche"){
+            colorEnd = R.color.red;
+        }
+
+        ValueAnimator colorAnim = ObjectAnimator.ofInt(v,
+                "backgroundColor", colorEnd, colorStart);
+        colorAnim.setRepeatCount(1);
+        colorAnim.setRepeatMode(ValueAnimator.REVERSE);
+        colorAnim.start();
+
+
+        colorAnim.start();
+    }
+
+
 
     private void genererSalles() {
         for (int i = 0; i < 10; i++) {
@@ -130,9 +195,13 @@ public class SalleListeFragment extends Fragment {
 
     // Container Activity must implement this interface
     public interface OnSalleSelectedListener {
-        public void onArticleSelected(int position, boolean type);
+        public void onArticleSelected(int position, String type);
         // le type est pour dire si liste de recherche ou liste préf
     }
+
+
+
+
 
 
 }

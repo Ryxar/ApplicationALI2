@@ -1,5 +1,8 @@
 package com.alamkanak.weekview;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -10,7 +13,7 @@ import static com.alamkanak.weekview.WeekViewUtil.*;
  * Created by Raquib-ul-Alam Kanak on 7/21/2014.
  * Website: http://april-shower.com
  */
-public class WeekViewEvent {
+public class WeekViewEvent implements Parcelable {
     private long mId;
     private Calendar mStartTime;
     private Calendar mEndTime;
@@ -99,6 +102,26 @@ public class WeekViewEvent {
         this(id, name, null, startTime, endTime);
     }
 
+
+    protected WeekViewEvent(Parcel in) {
+        mId = in.readLong();
+        mName = in.readString();
+        mLocation = in.readString();
+        mColor = in.readInt();
+        mAllDay = in.readByte() != 0;
+    }
+
+    public static final Creator<WeekViewEvent> CREATOR = new Creator<WeekViewEvent>() {
+        @Override
+        public WeekViewEvent createFromParcel(Parcel in) {
+            return new WeekViewEvent(in);
+        }
+
+        @Override
+        public WeekViewEvent[] newArray(int size) {
+            return new WeekViewEvent[size];
+        }
+    };
 
     public Calendar getStartTime() {
         return mStartTime;
@@ -217,5 +240,19 @@ public class WeekViewEvent {
         }
 
         return events;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(mId);
+        dest.writeString(mName);
+        dest.writeString(mLocation);
+        dest.writeInt(mColor);
+        dest.writeByte((byte) (mAllDay ? 1 : 0));
     }
 }
