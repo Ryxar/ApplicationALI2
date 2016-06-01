@@ -22,13 +22,24 @@ import com.example.ali2nat.v1.Modele.Salle;
 import com.example.ali2nat.v1.Salle.SalleActivity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-    private static final String EVENT_KEY = "event_key";
-    private static final String EVENT_NUM_TYPE = "event_";
+        implements NavigationView.OnNavigationItemSelectedListener, SemaineTypeFragment.OnCoursSelectedListener {
+
+    // clef de communication bundle
+        // bundle Planning
+    public static final String EVENT_KEY = "event_key";
+    public  static final String EVENT_NUM_TYPE = "event_";
+        // Bundle Salle
+    public static final String LSALLE_KEY = "lsalle_key";
+    public static final String LSALLE_NUM_TYPE = "lsalle_";
+        // Bundle Profil
+
     NavigationView navigationView=null;
     Toolbar toolbar=null;
+
+    private Fragment frag;
 
 
     // Profil de l'utilisateur
@@ -138,6 +149,7 @@ public class MainActivity extends AppCompatActivity
 
         }
         else if (id == R.id.nav_semaine_type) {
+            genererPlanning();
             Bundle bundleSemaineType= genererBundlePlanning();
             SemaineTypeFragment fragment=new SemaineTypeFragment();
             fragment.setArguments(bundleSemaineType);
@@ -169,7 +181,7 @@ public class MainActivity extends AppCompatActivity
 
     // Transmission de données au fragment planning
     public Bundle genererBundlePlanning(){
-
+        Log.d("yolo", "genererBundle: ");
         Bundle bundle = new Bundle();
 
 
@@ -179,5 +191,44 @@ public class MainActivity extends AppCompatActivity
             bundle.putParcelable(EVENT_NUM_TYPE + i, events.get(i));
 
         return bundle;
+    }
+
+    private  void genererPlanning(){
+
+        events = new ArrayList<>();
+
+        WeekViewEvent event;
+        for (int i = 0; i < 20; i++) {
+            Calendar startTime = Calendar.getInstance();
+
+            startTime.set(Calendar.DAY_OF_WEEK, (i+1)%7);
+            startTime.set(Calendar.HOUR_OF_DAY, 8);
+            startTime.set(Calendar.MINUTE, 0);
+            startTime.set(Calendar.MONTH, 6);
+            startTime.set(Calendar.YEAR, 2016);
+            Calendar endTime = (Calendar) startTime.clone();
+            endTime.add(Calendar.HOUR_OF_DAY, 10);
+            event = new WeekViewEvent(i, "Yolo","NomYoloSalle", startTime, endTime);
+            event.setColor(getResources().getColor(R.color.event_color_01));
+            events.add(event);
+        }
+
+
+    }
+
+    @Override
+    public void onArticleSelected(WeekViewEvent event) {
+        events.add(event);
+
+        Log.d("yolo", "On est dans MainA: ");
+        //
+        genererPlanning();
+        Bundle bundleSemaineType= genererBundlePlanning();
+        SemaineTypeFragment fragment=new SemaineTypeFragment();
+        fragment.setArguments(bundleSemaineType);
+        android.support.v4.app.FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container,fragment);
+        fragmentTransaction.commit();
+
     }
 }

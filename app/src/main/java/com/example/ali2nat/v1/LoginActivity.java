@@ -9,7 +9,8 @@ import com.example.ali2nat.v1.Modele.Profil;
 
 
 
-public class LoginActivity extends AppCompatActivity {
+public class
+        LoginActivity extends AppCompatActivity {
 
     private EditText usernameField,passwordField;
     private Profil profil;

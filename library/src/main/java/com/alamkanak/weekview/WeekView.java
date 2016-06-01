@@ -965,7 +965,7 @@ public class WeekView extends View {
      * the previous month, the next month.
      * @param day The day where the user is currently is.
      */
-    private void getMoreEvents(Calendar day) {
+    public void getMoreEvents(Calendar day) {
 
         // Get more events if the month is changed.
         if (mEventRects == null)
@@ -1274,6 +1274,7 @@ public class WeekView extends View {
     public void setEventLongPressListener(EventLongPressListener eventLongPressListener) {
         this.mEventLongPressListener = eventLongPressListener;
     }
+
 
     public void setEmptyViewClickListener(EmptyViewClickListener emptyViewClickListener){
         this.mEmptyViewClickListener = emptyViewClickListener;
