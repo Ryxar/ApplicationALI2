@@ -24,6 +24,7 @@ public class SemaineTypeFragment extends AbstractSemaineFragment  {
 
 
         String info="Cours d'intensité HARDCORE";
+        String salle="NULL";
         Calendar startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, 7-decalage);
         startTime.set(Calendar.MINUTE, 0);
@@ -32,7 +33,7 @@ public class SemaineTypeFragment extends AbstractSemaineFragment  {
         Calendar endTime = (Calendar) startTime.clone();
         endTime.add(Calendar.HOUR, 1);
         endTime.set(Calendar.MONTH, newMonth - 1);
-        WeekViewEvent event = new WeekViewEvent(1, getEventTitle(startTime,info), startTime, endTime);
+        WeekViewEvent event = new WeekViewEvent(1, getEventTitle(startTime,info),salle, startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_01));
         events.add(event);
 
@@ -45,7 +46,7 @@ public class SemaineTypeFragment extends AbstractSemaineFragment  {
         endTime.set(Calendar.HOUR_OF_DAY, 4);
         endTime.set(Calendar.MINUTE, 30);
         endTime.set(Calendar.MONTH, newMonth-1);
-        event = new WeekViewEvent(10, getEventTitle(startTime,info), startTime, endTime);
+        event = new WeekViewEvent(10, getEventTitle(startTime,info),salle, startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_02));
         events.add(event);
 
@@ -57,7 +58,7 @@ public class SemaineTypeFragment extends AbstractSemaineFragment  {
         endTime = (Calendar) startTime.clone();
         endTime.set(Calendar.HOUR_OF_DAY, 5);
         endTime.set(Calendar.MINUTE, 0);
-        event = new WeekViewEvent(10, getEventTitle(startTime,info), startTime, endTime);
+        event = new WeekViewEvent(10, getEventTitle(startTime,info),salle, startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_03));
         events.add(event);
 
@@ -69,7 +70,7 @@ public class SemaineTypeFragment extends AbstractSemaineFragment  {
         endTime = (Calendar) startTime.clone();
         endTime.add(Calendar.HOUR_OF_DAY, 2);
         endTime.set(Calendar.MONTH, newMonth-1);
-        event = new WeekViewEvent(2, getEventTitle(startTime,info), startTime, endTime);
+        event = new WeekViewEvent(2, getEventTitle(startTime,info),salle, startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_02));
         events.add(event);
 
@@ -82,7 +83,7 @@ public class SemaineTypeFragment extends AbstractSemaineFragment  {
         endTime = (Calendar) startTime.clone();
         endTime.add(Calendar.HOUR_OF_DAY, 3);
         endTime.set(Calendar.MONTH, newMonth - 1);
-        event = new WeekViewEvent(3, getEventTitle(startTime,info), startTime, endTime);
+        event = new WeekViewEvent(3, getEventTitle(startTime,info),salle, startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_03));
         events.add(event);
 
@@ -94,7 +95,7 @@ public class SemaineTypeFragment extends AbstractSemaineFragment  {
         startTime.set(Calendar.YEAR, newYear);
         endTime = (Calendar) startTime.clone();
         endTime.add(Calendar.HOUR_OF_DAY, 3);
-        event = new WeekViewEvent(4, getEventTitle(startTime,info), startTime, endTime);
+        event = new WeekViewEvent(4, getEventTitle(startTime,info),salle, startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_04));
         events.add(event);
 
@@ -106,7 +107,7 @@ public class SemaineTypeFragment extends AbstractSemaineFragment  {
         startTime.set(Calendar.YEAR, newYear);
         endTime = (Calendar) startTime.clone();
         endTime.add(Calendar.HOUR_OF_DAY, 3);
-        event = new WeekViewEvent(5, getEventTitle(startTime,info), startTime, endTime);
+        event = new WeekViewEvent(5, getEventTitle(startTime,info),salle, startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_01));
         events.add(event);
 
@@ -121,7 +122,7 @@ public class SemaineTypeFragment extends AbstractSemaineFragment  {
             startTime.set(Calendar.YEAR, newYear);
             endTime = (Calendar) startTime.clone();
             endTime.add(Calendar.HOUR_OF_DAY, 3);
-            event = new WeekViewEvent(5, getEventTitle(startTime,info), startTime, endTime);
+            event = new WeekViewEvent(5, getEventTitle(startTime,info),salle, startTime, endTime);
             event.setColor(getResources().getColor(R.color.event_color_02));
             events.add(event);
         }

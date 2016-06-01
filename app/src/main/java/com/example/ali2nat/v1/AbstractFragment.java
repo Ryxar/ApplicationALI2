@@ -121,24 +121,25 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
         return String.format(info, time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH)+1, time.get(Calendar.DAY_OF_MONTH));
     }
 
+
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
-       showPopUpInfo();
+       showPopUpInfo(event);
     }
 
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
-        showPopUpSuppr();
+        showPopUpSuppr(event);
     }
 
     @Override
     public void onEmptyViewLongPress(Calendar time) {
         showPopUpAjout();
     }
-    private void showPopUpSuppr() {
+    private void showPopUpSuppr(WeekViewEvent event) {
 
         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(getContext());
-        helpBuilder.setTitle("Titre du cour");
+        helpBuilder.setTitle(event.getName());
         helpBuilder.setMessage("Voulez-vous supprimer ce cour ?");
         helpBuilder.setPositiveButton("Supprimer",
                 new DialogInterface.OnClickListener() {
@@ -161,12 +162,11 @@ public abstract class AbstractFragment extends Fragment implements WeekView.Even
         AlertDialog helpDialog = helpBuilder.create();
         helpDialog.show();
     }
-    private void showPopUpInfo() {
+    private void showPopUpInfo(WeekViewEvent event) {
 
         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(getContext());
-        helpBuilder.setTitle("Titre du cour");
-        helpBuilder.setMessage("Info sur le cour ");
-
+        helpBuilder.setTitle(event.getName());
+        helpBuilder.setMessage("Salle:"+event.getmSalle()+"\n De :"+String.format("%d "+"H"+" %d",event.getStartTime().get(Calendar.HOUR_OF_DAY)+7,event.getStartTime().get(Calendar.MINUTE))+"\n A :"+String.format("%d "+"H"+" %d",event.getEndTime().get(Calendar.HOUR_OF_DAY)+7,event.getEndTime().get(Calendar.MINUTE)));
         helpBuilder.setNeutralButton("Retour", new DialogInterface.OnClickListener() {
 
             @Override

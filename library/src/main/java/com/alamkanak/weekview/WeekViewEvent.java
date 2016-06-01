@@ -18,6 +18,7 @@ public class WeekViewEvent {
     private String mLocation;
     private int mColor;
     private boolean mAllDay;
+    private String mSalle;
 
     public WeekViewEvent(){
 
@@ -67,10 +68,11 @@ public class WeekViewEvent {
      * @param endTime The time when the event ends.
      * @param allDay Is the event an all day event.
      */
-    public WeekViewEvent(long id, String name, String location, Calendar startTime, Calendar endTime, boolean allDay) {
+    public WeekViewEvent(long id, String name, String location,String salle, Calendar startTime, Calendar endTime, boolean allDay) {
         this.mId = id;
         this.mName = name;
         this.mLocation = location;
+        this.mSalle=salle;
         this.mStartTime = startTime;
         this.mEndTime = endTime;
         this.mAllDay = allDay;
@@ -84,8 +86,8 @@ public class WeekViewEvent {
      * @param startTime The time when the event starts.
      * @param endTime The time when the event ends.
      */
-    public WeekViewEvent(long id, String name, String location, Calendar startTime, Calendar endTime) {
-        this(id, name, location, startTime, endTime, false);
+    public WeekViewEvent(long id, String name, String location,String salle, Calendar startTime, Calendar endTime) {
+        this(id, name, location,salle, startTime, endTime, false);
     }
 
     /**
@@ -95,8 +97,8 @@ public class WeekViewEvent {
      * @param startTime The time when the event starts.
      * @param endTime The time when the event ends.
      */
-    public WeekViewEvent(long id, String name, Calendar startTime, Calendar endTime) {
-        this(id, name, null, startTime, endTime);
+    public WeekViewEvent(long id, String name,String salle, Calendar startTime, Calendar endTime) {
+        this(id, name, null,salle, startTime, endTime);
     }
 
 
@@ -111,6 +113,8 @@ public class WeekViewEvent {
     public Calendar getEndTime() {
         return mEndTime;
     }
+
+    public String getmSalle(){return mSalle;}
 
     public void setEndTime(Calendar endTime) {
         this.mEndTime = endTime;
@@ -182,7 +186,7 @@ public class WeekViewEvent {
             endTime = (Calendar) this.getStartTime().clone();
             endTime.set(Calendar.HOUR_OF_DAY, 23);
             endTime.set(Calendar.MINUTE, 59);
-            WeekViewEvent event1 = new WeekViewEvent(this.getId(), this.getName(), this.getLocation(), this.getStartTime(), endTime, this.isAllDay());
+            WeekViewEvent event1 = new WeekViewEvent(this.getId(), this.getName(), this.getLocation(),this.getmSalle(), this.getStartTime(), endTime, this.isAllDay());
             event1.setColor(this.getColor());
             events.add(event1);
 
@@ -196,7 +200,7 @@ public class WeekViewEvent {
                 Calendar endOfOverDay = (Calendar) overDay.clone();
                 endOfOverDay.set(Calendar.HOUR_OF_DAY, 23);
                 endOfOverDay.set(Calendar.MINUTE, 59);
-                WeekViewEvent eventMore = new WeekViewEvent(this.getId(), this.getName(), null, overDay, endOfOverDay, this.isAllDay());
+                WeekViewEvent eventMore = new WeekViewEvent(this.getId(), this.getName(), null,this.getmSalle(), overDay, endOfOverDay, this.isAllDay());
                 eventMore.setColor(this.getColor());
                 events.add(eventMore);
 
@@ -208,7 +212,7 @@ public class WeekViewEvent {
             Calendar startTime = (Calendar) this.getEndTime().clone();
             startTime.set(Calendar.HOUR_OF_DAY, 0);
             startTime.set(Calendar.MINUTE, 0);
-            WeekViewEvent event2 = new WeekViewEvent(this.getId(), this.getName(), this.getLocation(), startTime, this.getEndTime(), this.isAllDay());
+            WeekViewEvent event2 = new WeekViewEvent(this.getId(), this.getName(), this.getLocation(),this.getmSalle(), startTime, this.getEndTime(), this.isAllDay());
             event2.setColor(this.getColor());
             events.add(event2);
         }
