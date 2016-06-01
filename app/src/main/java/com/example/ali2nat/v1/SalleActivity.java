@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.ali2nat.v1.Adapteur.SalleAdapteur;
 import com.example.ali2nat.v1.Modele.Salle;
@@ -15,7 +16,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SalleActivity extends AppCompatActivity {
+public class SalleActivity extends AppCompatActivity implements SalleListeFragment.OnSalleSelectedListener{
 
 
     public static final String SALLES_KEY = "salles_key";
@@ -47,7 +48,8 @@ public class SalleActivity extends AppCompatActivity {
 
         // Fragment pour les salles préférées
         Log.d("tag", "pref");
-        Bundle bundle = genererBundle(false, sallesR);
+        Bundle bundle = genererBundle(false, sallesPref);
+        Log.d("type", "Bundle:  "+bundle);
         // Create new fragment and transaction
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         // on envoit le bundle
@@ -64,11 +66,13 @@ public class SalleActivity extends AppCompatActivity {
 
 
         Log.d("tag", "rech");
-        // Fragment pour les salles préférées
+        // Fragment pour les salles recherché
         Bundle bundleRech = genererBundle(true, sallesR);
         // Create new fragment and transaction
         FragmentTransaction transactionR = getFragmentManager().beginTransaction();
         // on envoit le bundle
+
+        Log.d("type", "Bundle:  "+bundleRech);
         fragRech.setArguments(bundleRech);
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack
@@ -82,6 +86,46 @@ public class SalleActivity extends AppCompatActivity {
 
 
     }
+
+    public void onArticleSelected(int position, boolean type){
+
+        if(type == true){
+
+            Salle salle = sallesR.get(position);
+            sallesPref.add(salle);
+            Toast.makeText((this),
+                    "ajout de salle " +salle.getNom() + "à liste pref", Toast.LENGTH_LONG)
+                    .show();
+        }
+        else{
+
+            Salle salle = sallesPref.get(position);
+            Toast.makeText((this),
+                    "retrait de " +salle.getNom() + "à liste pref", Toast.LENGTH_LONG)
+                    .show();
+            sallesPref.remove(salle);
+
+        }
+
+        Fragment nvFrag = new SalleListeFragment();
+        Bundle bundleRech = genererBundle(type, sallesPref);
+        // Create new fragment and transaction
+        FragmentTransaction transactionR = getFragmentManager().beginTransaction();
+        // on envoit le bundle
+        nvFrag.setArguments(bundleRech);
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack
+        transactionR.replace(R.id.llSallePref, nvFrag);
+        transactionR.addToBackStack(null);
+        // Commit the transaction
+        transactionR.commit();
+        fragPref = nvFrag;
+
+
+    }
+
+
+
 /*                      || Non utilisé ||
     private void setFragment(boolean type){
         int idLayout;
@@ -119,6 +163,7 @@ public class SalleActivity extends AppCompatActivity {
 
     private Bundle genererBundle(boolean type, List<Salle> lSalles){
         Bundle bundle = new Bundle();
+        Log.d("type", "type : "+type);
 
         bundle.putBoolean("NATURE", type);
         bundle.putInt("NB_SALLES", lSalles.size());

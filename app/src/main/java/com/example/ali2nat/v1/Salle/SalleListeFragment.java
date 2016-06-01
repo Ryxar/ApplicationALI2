@@ -1,5 +1,6 @@
 package com.example.ali2nat.v1.Salle;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,16 +38,11 @@ public class SalleListeFragment extends Fragment {
     private ArrayList<Salle> salles;
     private boolean recherche;
 
+    // Interface pour le callback vers l'activité
+    OnSalleSelectedListener mCallback;
+
     public SalleListeFragment() {
         // Required empty public constructor
-    }
-    public static SalleListeFragment newInstance(List<Salle> salles){
-        SalleListeFragment salleListeFragment = new SalleListeFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(SALLES_KEY, (Serializable) salles);
-
-        salleListeFragment.setArguments(bundle);
-        return salleListeFragment;
     }
 
 
@@ -57,10 +53,11 @@ public class SalleListeFragment extends Fragment {
         Intent i = getActivity().getIntent();
 
         salles = new ArrayList<>();
-        recherche = false;
+        //recherche = false;
 
 
         Bundle bundle = this.getArguments();
+
         recherche = bundle.getBoolean("NATURE");
 
         int taille = bundle.getInt("NB_SALLES");
@@ -85,16 +82,36 @@ public class SalleListeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Log.d("y", "onItemClick: ");
-                Toast.makeText((getActivity()),
-                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
-                        .show();
+                Log.d("type", "type : " + recherche);
+
+
+
+                mCallback.onArticleSelected(position, recherche);
+                // si recherche = false; on le suprrime de la liste en demandant la confirmation
+
+
+
             }
         });
 
 
         return v;
     }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (OnSalleSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
+    }
+
 
     /*@Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -108,5 +125,14 @@ public class SalleListeFragment extends Fragment {
         }
 
     }
+
+
+
+    // Container Activity must implement this interface
+    public interface OnSalleSelectedListener {
+        public void onArticleSelected(int position, boolean type);
+        // le type est pour dire si liste de recherche ou liste préf
+    }
+
 
 }
