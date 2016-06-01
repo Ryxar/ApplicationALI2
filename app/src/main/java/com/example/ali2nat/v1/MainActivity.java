@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         profil = (Profil) getIntent().getSerializableExtra("profil");
         Toast toast = Toast.makeText(this,profil.getNom(), Toast.LENGTH_LONG);
         toast.show();

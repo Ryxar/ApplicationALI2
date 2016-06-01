@@ -218,7 +218,7 @@ public class PlanningFragment extends AbstractFragment   {
             public String interpretDate(Calendar date) {
                 SimpleDateFormat weekdayNameFormat = new SimpleDateFormat("EEE", Locale.getDefault());
                 String weekday = weekdayNameFormat.format(date.getTime());
-                SimpleDateFormat format = new SimpleDateFormat("d/M", Locale.getDefault());
+                SimpleDateFormat format = new SimpleDateFormat("  d/M", Locale.getDefault());
 
                 // All android api level do not have a standard way of getting the first letter of
                 // the week day name. Hence we get the first char programmatically.
