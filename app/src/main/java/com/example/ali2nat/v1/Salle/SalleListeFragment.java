@@ -77,10 +77,10 @@ public class SalleListeFragment extends Fragment {
 
         lvSalle = (ListView) v.findViewById(R.id.listSalle);
         if(recherche == "recherche"){
-            tvTitre.setText("Résultat de la recherche");
+            tvTitre.setText(R.string.liste_salle_rech);
         }
         else{
-            tvTitre.setText("Vos salles préférées");
+            tvTitre.setText(R.string.liste_salle_pref);
         }
 
 

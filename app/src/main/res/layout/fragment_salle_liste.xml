@@ -9,15 +9,18 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_marginTop="@dimen/dim1"
-        android:paddingTop="@dimen/half_dim"
+
         android:background="@color/fond">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tvTitre"
             android:text="Mes Salles chaudes dans ma région :"
             android:layout_gravity="center"
+            android:paddingLeft="@dimen/half_dim"
             android:textSize="@dimen/text_size_major"
+            android:background="@drawable/border_titre"
+
             android:textStyle="bold"/>
         <ListView
             android:layout_width="match_parent"

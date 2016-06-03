@@ -46,13 +46,15 @@
                 android:padding="20dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Faire une recherche :"
-
+                    android:background="@drawable/border_titre"
                     android:id="@+id/tVSelecSalles"
                     android:textStyle="bold"
+                    android:paddingLeft="@dimen/dim3"
+                    
                     android:layout_gravity="center" />
 
                 <EditText
