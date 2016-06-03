@@ -3,6 +3,7 @@ package com.example.ali2nat.v1;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.WeekView;
@@ -61,6 +64,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        TextView nom=(TextView)  headerView.findViewById(R.id.textViewNom);
+        TextView role=(TextView)headerView.findViewById(R.id.textViewrole);
 
         profil = (Profil) getIntent().getSerializableExtra("profil");
         profile = getIntent().getStringExtra("Json");
@@ -68,6 +76,8 @@ public class MainActivity extends AppCompatActivity
             JSONObject profileJSON = new JSONObject(profile);
             Toast toast = Toast.makeText(this, (CharSequence) profileJSON.get("name"), Toast.LENGTH_LONG);
             toast.show();
+            nom.setText((String) profileJSON.get("name"));
+            role.setText((String) profileJSON.get("auth"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -88,8 +98,8 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+
+
     }
 
     @Override

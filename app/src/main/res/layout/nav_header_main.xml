@@ -26,7 +26,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Grégory Dubois"
         android:id="@+id/textViewNom"
         android:layout_marginTop="@dimen/dim2"
         android:layout_marginLeft="@dimen/dim2"
