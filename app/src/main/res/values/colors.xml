@@ -16,4 +16,5 @@
     <color name="fond">#ecf0f5</color>
     <color name="color_retrait_liste">#80ff8f</color>
     <color name="color_ajout_liste">#ff7f7b</color>
+    <color name="fond_titre">#9ed0ed</color>
 </resources>

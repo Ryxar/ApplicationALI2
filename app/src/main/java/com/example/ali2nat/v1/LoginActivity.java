@@ -24,7 +24,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class
+        LoginActivity extends AppCompatActivity {
 
     private EditText usernameField,passwordField;
     private Profil profil;

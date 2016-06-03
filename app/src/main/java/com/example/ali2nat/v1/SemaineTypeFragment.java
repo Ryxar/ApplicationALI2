@@ -1,9 +1,11 @@
 package com.example.ali2nat.v1;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,103 +29,28 @@ public class SemaineTypeFragment extends AbstractFragment  {
     private WeekView mWeekView;
     private   List<WeekViewEvent> events;
 
+    private OnCoursSelectedListener mCallback;
+
 
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
       events= new ArrayList<WeekViewEvent>();
 
         // Populate the week view with some events.
+        events = getEvents();
+        Log.d("yolo", "onMonthChange:liste "+events.size());
 
-        int decalage=7;
 
-
-        String info="Cours d'intensité HARDCORE";
-        String salle="NULL";
         Calendar startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 7-decalage);
-        startTime.set(Calendar.MINUTE, 0);
-        startTime.set(Calendar.MONTH, newMonth - 1);
-        startTime.set(Calendar.YEAR, newYear);
-        Calendar endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR, 1);
-        endTime.set(Calendar.MONTH, newMonth - 1);
-        WeekViewEvent event = new WeekViewEvent(1, getEventTitle(startTime,info),salle, startTime, endTime);
-        event.setColor(getResources().getColor(R.color.event_color_01));
-        events.add(event);
-
-        startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 3);
-        startTime.set(Calendar.MINUTE, 30);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
-        endTime = (Calendar) startTime.clone();
-        endTime.set(Calendar.HOUR_OF_DAY, 4);
-        endTime.set(Calendar.MINUTE, 30);
-        endTime.set(Calendar.MONTH, newMonth-1);
-        event = new WeekViewEvent(10, getEventTitle(startTime,info),salle, startTime, endTime);
-        event.setColor(getResources().getColor(R.color.event_color_02));
-        events.add(event);
-
-        startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 4);
-        startTime.set(Calendar.MINUTE, 20);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
-        endTime = (Calendar) startTime.clone();
-        endTime.set(Calendar.HOUR_OF_DAY, 5);
-        endTime.set(Calendar.MINUTE, 0);
-        event = new WeekViewEvent(10, getEventTitle(startTime,info),salle, startTime, endTime);
-        event.setColor(getResources().getColor(R.color.event_color_03));
-        events.add(event);
-
-        startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 5);
-        startTime.set(Calendar.MINUTE, 30);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
-        endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR_OF_DAY, 2);
-        endTime.set(Calendar.MONTH, newMonth-1);
-        event = new WeekViewEvent(2, getEventTitle(startTime,info),salle, startTime, endTime);
-        event.setColor(getResources().getColor(R.color.event_color_02));
-        events.add(event);
-
-        startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 5);
-        startTime.set(Calendar.MINUTE, 0);
-        startTime.set(Calendar.MONTH, newMonth - 1);
-        startTime.set(Calendar.YEAR, newYear);
-        startTime.add(Calendar.DATE, 1);
-        endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR_OF_DAY, 3);
-        endTime.set(Calendar.MONTH, newMonth - 1);
-        event = new WeekViewEvent(3, getEventTitle(startTime,info),salle, startTime, endTime);
-        event.setColor(getResources().getColor(R.color.event_color_03));
-        events.add(event);
-
-        startTime = Calendar.getInstance();
-        startTime.set(Calendar.DAY_OF_MONTH, 15);
-        startTime.set(Calendar.HOUR_OF_DAY, 3);
-        startTime.set(Calendar.MINUTE, 0);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
-        endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR_OF_DAY, 3);
-        event = new WeekViewEvent(4, getEventTitle(startTime,info),salle, startTime, endTime);
-        event.setColor(getResources().getColor(R.color.event_color_04));
-        events.add(event);
-
-        startTime = Calendar.getInstance();
         startTime.set(Calendar.DAY_OF_MONTH, 1);
-        startTime.set(Calendar.HOUR_OF_DAY, 3);
+        startTime.set(Calendar.HOUR_OF_DAY, 8);
         startTime.set(Calendar.MINUTE, 0);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
-        endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR_OF_DAY, 3);
-        event = new WeekViewEvent(5, getEventTitle(startTime,info),salle, startTime, endTime);
+
+        Calendar endTime = (Calendar) startTime.clone();
+        endTime.add(Calendar.HOUR_OF_DAY, 10);
+        WeekViewEvent event = new WeekViewEvent(5, "Yolo","NomYoloSalle", startTime, endTime);
+
         event.setColor(getResources().getColor(R.color.event_color_01));
         events.add(event);
-
 
 
 
@@ -136,6 +63,16 @@ public class SemaineTypeFragment extends AbstractFragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vp = inflater.inflate(R.layout.fragment_semaine_type, container, false);
+
+        // On récupère le bundle
+        Bundle bundle = this.getArguments();
+
+        events = new ArrayList<>();
+
+        int taille = bundle.getInt(MainActivity.EVENT_KEY);
+        Log.d("yolo", "onCreateView: taille liste"+taille);
+        for (int t = 0; t< taille; t++)
+            events.add((WeekViewEvent) bundle.getParcelable(MainActivity.EVENT_NUM_TYPE + t));
 
 
         // Get a reference for the week view in the layout.
@@ -267,19 +204,22 @@ public class SemaineTypeFragment extends AbstractFragment  {
                 new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        Calendar startTime,endTime;
-                        String intensite="Cours d'intensité repeat";
-                        String salle="une salle sur Paris";
+                        Calendar startTime, endTime;
+                        String intensite = "Cours d'intensité repeat";
+                        String salle = "une salle sur Paris";
                         startTime = Calendar.getInstance();
                         startTime.set(Calendar.DAY_OF_MONTH, 1);
-                        startTime.set(Calendar.HOUR_OF_DAY, 15-7);
+                        startTime.set(Calendar.HOUR_OF_DAY, 15 - 7);
                         startTime.set(Calendar.MINUTE, 0);
                         endTime = (Calendar) startTime.clone();
                         endTime.add(Calendar.HOUR_OF_DAY, 15);
-                        WeekViewEvent event = new WeekViewEvent(1, intensite,salle, startTime, endTime);
+                        WeekViewEvent event = new WeekViewEvent(1, intensite, salle, startTime, endTime);
                         event.setColor(getResources().getColor(R.color.event_color_02));
                         getEvents().add(event);
-                        CharSequence text = "taille :"+getEvents().size();
+                        Log.d("yolo", "onClick: ");
+                       // mWeekView.getMoreEvents();
+                        mCallback.onArticleSelected(event);
+                        CharSequence text = "taille :" + getEvents().size();
                         int duration = Toast.LENGTH_SHORT;
 
                         Toast toast = Toast.makeText(getActivity(), text, duration);
@@ -313,6 +253,28 @@ public class SemaineTypeFragment extends AbstractFragment  {
     public void setEvents(List<WeekViewEvent> events) {
         this.events = events;
     }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            Log.d("yolo", "onAttach: ");
+            mCallback = (OnCoursSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
+    }
+
+    // Container Activity must implement this interface
+    public interface OnCoursSelectedListener {
+        public void onArticleSelected(WeekViewEvent event);
+        // le type est pour dire si liste de recherche ou liste préf
+    }
+
 
 
 
