@@ -272,21 +272,24 @@ public class MainActivity extends AppCompatActivity
     private  void genererPlanning(){
 
         events = new ArrayList<>();
-
+        Calendar startTime = Calendar.getInstance();
         WeekViewEvent event;
         for (int i = 0; i < 20; i++) {
-            Calendar startTime = Calendar.getInstance();
 
-            startTime.set(Calendar.DAY_OF_WEEK, (i+1)%7);
-            startTime.set(Calendar.HOUR_OF_DAY, 8);
+
+            startTime.set(2016,6,(i+1), 8+(i+1)%7, 0 );
+            /*
+            startTime.set(Calendar.HOUR_OF_DAY, 8+(i%5));
             startTime.set(Calendar.MINUTE, 0);
             startTime.set(Calendar.MONTH, 6);
             startTime.set(Calendar.YEAR, 2016);
+            */
             Calendar endTime = (Calendar) startTime.clone();
             endTime.add(Calendar.HOUR_OF_DAY, 10);
             event = new WeekViewEvent(i, "Yolo","NomYoloSalle", startTime, endTime);
             event.setColor(getResources().getColor(R.color.event_color_01));
             events.add(event);
+
         }
 
 

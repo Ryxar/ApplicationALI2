@@ -33,10 +33,10 @@ public class SemaineTypeFragment extends AbstractFragment  {
 
 
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-      events= new ArrayList<WeekViewEvent>();
+      //events= new ArrayList<WeekViewEvent>();
 
         // Populate the week view with some events.
-        events = getEvents();
+        //events = getEvents();
         Log.d("yolo", "onMonthChange:liste "+events.size());
 
 
@@ -139,7 +139,7 @@ public class SemaineTypeFragment extends AbstractFragment  {
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
-        showPopUpInfo();
+        showPopUpInfo(event);
     }
 
     @Override
@@ -177,11 +177,11 @@ public class SemaineTypeFragment extends AbstractFragment  {
         AlertDialog helpDialog = helpBuilder.create();
         helpDialog.show();
     }
-    private void showPopUpInfo() {
+    private void showPopUpInfo(WeekViewEvent event) {
 
         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(getContext());
         helpBuilder.setTitle("Titre du cour");
-        helpBuilder.setMessage("Info sur le cour ");
+        helpBuilder.setMessage("info sur le cours " + event.getId());
 
         helpBuilder.setNeutralButton("Retour", new DialogInterface.OnClickListener() {
 
@@ -219,6 +219,7 @@ public class SemaineTypeFragment extends AbstractFragment  {
                         Log.d("yolo", "onClick: ");
                        // mWeekView.getMoreEvents();
                         mCallback.onArticleSelected(event);
+                        mWeekView.notifyDatasetChanged();
                         CharSequence text = "taille :" + getEvents().size();
                         int duration = Toast.LENGTH_SHORT;
 
