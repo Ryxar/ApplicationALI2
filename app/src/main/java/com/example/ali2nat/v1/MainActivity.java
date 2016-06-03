@@ -21,6 +21,9 @@ import com.example.ali2nat.v1.Modele.Profil;
 import com.example.ali2nat.v1.Modele.Salle;
 import com.example.ali2nat.v1.Salle.SalleActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     Toolbar toolbar=null;
 
     private Fragment frag;
+    private String profile;
 
 
     // Profil de l'utilisateur
@@ -59,8 +63,15 @@ public class MainActivity extends AppCompatActivity
 
 
         profil = (Profil) getIntent().getSerializableExtra("profil");
-        Toast toast = Toast.makeText(this,profil.getNom(), Toast.LENGTH_LONG);
-        toast.show();
+        profile = getIntent().getStringExtra("Json");
+        try {
+            JSONObject profileJSON = new JSONObject(profile);
+            Toast toast = Toast.makeText(this, (CharSequence) profileJSON.get("name"), Toast.LENGTH_LONG);
+            toast.show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         MainFragment fragment= MainFragment.newInstance(profil);
         android.support.v4.app.FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container,fragment);

@@ -1,4 +1,5 @@
 package com.example.ali2nat.v1;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -32,12 +33,14 @@ public class
     private SigninActivity SA;
     private int duration = Toast.LENGTH_SHORT;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         usernameField = (EditText)findViewById(R.id.editText1);
         passwordField = (EditText)findViewById(R.id.editText2);
+
         // on initialise le profil
         profil = new Profil("Hubert Bonnisseur de la batte", 1);
     }
@@ -69,7 +72,7 @@ public class
         }
         else//If Network NOK
         {
-            String NoCon="No Network Detected";
+            String NoCon="Vous n'etes pas connecté";
             Context context=getApplicationContext();
             Toast toast= Toast.makeText(context,NoCon,duration);
             toast.show();
@@ -77,31 +80,17 @@ public class
     }
 
     public void tryresult(String resultat){
-        if(resultat=="KO"||resultat==null){
+        if(resultat.equals("KO")||resultat==null){
             Context context = getApplicationContext();
             Toast toast = Toast.makeText(context, "Erreur d'identification", duration);
             toast.show();
 
         }
         else{
-
-
-
-
-
         try {
             Context context = getApplicationContext();
             JSONObject jsonObject = new JSONObject(resultat);
-            Toast toast = Toast.makeText(context, (CharSequence) jsonObject.get("email"), duration);
-            toast.show();
-            toast = Toast.makeText(context, (CharSequence) jsonObject.get("id_GS"), duration);
-            toast.show();
-            toast = Toast.makeText(context, (CharSequence) jsonObject.get("auth"), duration);
-            toast.show();
-
-            toast = Toast.makeText(context, (CharSequence) jsonObject.get("createdAt"), duration);
-            toast.show();
-            toast = Toast.makeText(context, (CharSequence) jsonObject.get("name"), duration);
+            Toast toast = Toast.makeText(context, (CharSequence) jsonObject.get("name"), duration);
             toast.show();
             if(jsonObject.get("email")!=null&&jsonObject.get("id_GS")!=null&& jsonObject.get("auth")!=null&&jsonObject.get("name")!=null)
             {
@@ -123,12 +112,16 @@ public class
 
     class SigninActivity  extends AsyncTask<String,Void,String> {
         private Context context;
+        private ProgressDialog dialog;
         public SigninActivity(Context context) {
             this.context = context;
         }
 
         protected void onPreExecute(){
             super.onPreExecute();
+            dialog = new ProgressDialog(context);
+            dialog.setMessage("Chargement...");
+            dialog.show();
 
         }
 
@@ -168,16 +161,9 @@ public class
 
         @Override
         protected void onPostExecute(String result){
+            dialog.dismiss();
+            tryresult(result);
 
-            final String rs=result;
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-
-                    tryresult(rs);
-
-                }
-            }, 2000);
         }
     }
 }
