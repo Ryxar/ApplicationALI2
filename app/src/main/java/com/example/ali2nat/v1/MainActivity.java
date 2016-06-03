@@ -3,7 +3,10 @@ package com.example.ali2nat.v1;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +31,7 @@ import com.example.ali2nat.v1.Salle.SalleActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -76,6 +81,7 @@ public class MainActivity extends AppCompatActivity
             JSONObject profileJSON = new JSONObject(profile);
             Toast toast = Toast.makeText(this, (CharSequence) profileJSON.get("name"), Toast.LENGTH_LONG);
             toast.show();
+            new DownloadImageTask((ImageView) headerView.findViewById(R.id.profile_image)).execute((String)profileJSON.get("photo"));
             nom.setText((String) profileJSON.get("name"));
             role.setText((String) profileJSON.get("auth"));
         } catch (JSONException e) {
@@ -252,5 +258,29 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.fragment_container,fragment);
         fragmentTransaction.commit();
 
+    }
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }
