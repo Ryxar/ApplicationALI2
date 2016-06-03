@@ -18,6 +18,7 @@ import com.alamkanak.weekview.WeekViewEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
@@ -144,14 +145,14 @@ public class SemaineTypeFragment extends AbstractFragment  {
 
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
-        showPopUpSuppr();
+        showPopUpSuppr(event);
     }
 
     @Override
     public void onEmptyViewLongPress(Calendar time) {
-        showPopUpAjout();
+        showPopUpAjout(time);
     }
-    private void showPopUpSuppr() {
+    private void showPopUpSuppr(WeekViewEvent event) {
 
         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(getContext());
         helpBuilder.setTitle("Titre du cour");
@@ -181,7 +182,7 @@ public class SemaineTypeFragment extends AbstractFragment  {
 
         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(getContext());
         helpBuilder.setTitle("Titre du cour");
-        helpBuilder.setMessage("info sur le cours " + event.getId());
+        helpBuilder.setMessage("info sur le cours " + event.getStartTime() );
 
         helpBuilder.setNeutralButton("Retour", new DialogInterface.OnClickListener() {
 
@@ -195,30 +196,23 @@ public class SemaineTypeFragment extends AbstractFragment  {
         AlertDialog helpDialog = helpBuilder.create();
         helpDialog.show();
     }
-    private void showPopUpAjout() {
+    private void showPopUpAjout(Calendar time) {
 
         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(getContext());
+        final Date date = time.getTime();
         helpBuilder.setTitle("Formulaire d'ajout");
-        helpBuilder.setMessage("etc");
+        helpBuilder.setMessage("Voulez vous ajouter un cours le : "+date.getDate()+"/"+date.getMonth()+"/"+date.getYear()+ " à"+date.getHours()+"h"+date.getMinutes());
         helpBuilder.setPositiveButton("Ajouter",
                 new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        Calendar startTime, endTime;
-                        String intensite = "Cours d'intensité repeat";
-                        String salle = "une salle sur Paris";
-                        startTime = Calendar.getInstance();
-                        startTime.set(Calendar.DAY_OF_MONTH, 1);
-                        startTime.set(Calendar.HOUR_OF_DAY, 15 - 7);
-                        startTime.set(Calendar.MINUTE, 0);
-                        endTime = (Calendar) startTime.clone();
-                        endTime.add(Calendar.HOUR_OF_DAY, 15);
-                        WeekViewEvent event = new WeekViewEvent(1, intensite, salle, startTime, endTime);
+
+                        WeekViewEvent event = genererCours("</Strong>","Salle de bonhomme ta vue", date);
                         event.setColor(getResources().getColor(R.color.event_color_02));
                         getEvents().add(event);
                         Log.d("yolo", "onClick: ");
                        // mWeekView.getMoreEvents();
-                        mCallback.onArticleSelected(event);
+                        //mCallback.onArticleSelected(event);
                         mWeekView.notifyDatasetChanged();
                         CharSequence text = "taille :" + getEvents().size();
                         int duration = Toast.LENGTH_SHORT;
@@ -241,6 +235,26 @@ public class SemaineTypeFragment extends AbstractFragment  {
         // Remember, create doesn't show the dialog
         AlertDialog helpDialog = helpBuilder.create();
         helpDialog.show();
+    }
+
+    public WeekViewEvent genererCours(String intensite, String salle, Date date){
+        // On genrer les variables
+        WeekViewEvent cours;
+        Calendar startTime, endTime;
+
+        startTime = Calendar.getInstance();
+        startTime.set(Calendar.DAY_OF_MONTH, date.getDay());
+        startTime.set(Calendar.HOUR_OF_DAY, date.getHours());
+        startTime.set(date.getYear(), date.getMonth(), date.getDay(), date.getHours(),date.getMinutes());
+        startTime.set(Calendar.MINUTE, 0);
+        endTime = (Calendar) startTime.clone();
+        endTime.add(Calendar.HOUR_OF_DAY, date.getHours()+2);
+
+
+        cours = new WeekViewEvent((events.size()+1), "yolo",salle ,startTime, endTime );
+
+        return cours;
+
     }
 
     public WeekView getWeekView() {
