@@ -1,11 +1,15 @@
 package com.example.ali2nat.v1;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,6 +20,7 @@ import com.example.ali2nat.v1.Modele.Periode;
 import com.example.ali2nat.v1.Modele.Profil;
 import com.example.ali2nat.v1.Modele.Statistique;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +59,19 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         profil = (Profil) getArguments().getSerializable(PROFIL_KEY);
-        View v = inflater.inflate(R.layout.fragment_main, container, false);
+        View v = inflater.inflate(R.layout.fragment_profil, container, false);
+
+        File imgFile = new File(Environment.getExternalStorageDirectory()
+                + "/Android/data/"
+                + getActivity().getApplicationContext().getPackageName()
+                + "/Files","profil.jpg");
+        if(imgFile.exists()){
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            //Drawable d = new BitmapDrawable(getResources(), myBitmap);
+            ImageView myImage = (ImageView) v.findViewById(R.id.profile_image_fragment);
+            myImage.setImageBitmap(myBitmap);
+
+        }
 
         lvPeriode = (ListView) v.findViewById(R.id.lvPeriode);
         lvStat = (ListView) v.findViewById(R.id.lvStat);
