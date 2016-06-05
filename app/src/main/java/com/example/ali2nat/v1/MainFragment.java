@@ -20,6 +20,9 @@ import com.example.ali2nat.v1.Modele.Periode;
 import com.example.ali2nat.v1.Modele.Profil;
 import com.example.ali2nat.v1.Modele.Statistique;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +38,7 @@ public class MainFragment extends Fragment {
     private Profil profil;
     private List<Periode> lPeriode;
     private List<Statistique> lStats;
+    private JSONObject profileJSON;
 
     private TextView tvNom, tvAdresse, tvType;
     public MainFragment() {
@@ -60,6 +64,7 @@ public class MainFragment extends Fragment {
 
         profil = (Profil) getArguments().getSerializable(PROFIL_KEY);
         View v = inflater.inflate(R.layout.fragment_profil, container, false);
+        profileJSON=((MainActivity)getActivity()).getJsonProfil();
 
         File imgFile = new File(Environment.getExternalStorageDirectory()
                 + "/Android/data/"
@@ -84,9 +89,13 @@ public class MainFragment extends Fragment {
         tvType = (TextView )v.findViewById(R.id.tvType);
 
 
-        tvNom.setText(profil.getNom());
-        tvAdresse.setText(profil.getAdresse());
-        tvType.setText(profil.typeString());
+        try {
+            tvNom.setText((String)profileJSON.get("name"));
+            tvType.setText((String)profileJSON.get("auth"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+         tvAdresse.setText(profil.getAdresse());
 
 
         genererPeriode();

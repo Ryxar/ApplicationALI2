@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity
 
     private Fragment frag;
     private String profile;
+    JSONObject profileJSON;
 
 
     // Profil de l'utilisateur
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity
                 + "/Files","profil.jpg");
 
         try {
-            JSONObject profileJSON = new JSONObject(profile);
+            profileJSON = new JSONObject(profile);
 
             imagenav.setImageBitmap(BitmapFactory.decodeFile(imgFile.getAbsolutePath()));
             nom.setText((String) profileJSON.get("name"));
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+    public JSONObject getJsonProfil(){return profileJSON;}
 
     @Override
     public void onBackPressed() {
