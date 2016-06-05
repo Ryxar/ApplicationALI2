@@ -2,13 +2,18 @@ package com.example.ali2nat.v1;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.ali2nat.v1.Modele.Profil;
@@ -17,6 +22,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -78,34 +87,53 @@ public class
             toast.show();
         }
     }
-
-    public void tryresult(String resultat){
-        if(resultat.equals("KO")||resultat==null){
-            Context context = getApplicationContext();
-            Toast toast = Toast.makeText(context, "Erreur d'identification", duration);
-            toast.show();
-
+    private void storeImage(Bitmap image) {
+        File pictureFile = getOutputMediaFile();
+        if (pictureFile == null) {
+            return;
         }
-        else{
         try {
-            Context context = getApplicationContext();
-            JSONObject jsonObject = new JSONObject(resultat);
-            Toast toast = Toast.makeText(context, (CharSequence) jsonObject.get("name"), duration);
-            toast.show();
-            if(jsonObject.get("email")!=null&&jsonObject.get("id_GS")!=null&& jsonObject.get("auth")!=null&&jsonObject.get("name")!=null)
-            {
-                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                intent.putExtra("profil", profil);
-                intent.putExtra("Json", jsonObject.toString());
-                startActivity(intent);
-                finish();
+            FileOutputStream fos = new FileOutputStream(pictureFile);
+            image.compress(Bitmap.CompressFormat.PNG, 90, fos);
+            fos.close();
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+        }
+    }
+    /** Create a File for saving an image or video */
+    private  File getOutputMediaFile(){
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+        File mediaStorageDir = new File(Environment.getExternalStorageDirectory()
+                + "/Android/data/"
+                + getApplicationContext().getPackageName()
+                + "/Files");
 
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                return null;
             }
+        }
+        // Create a media file name
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        }
+        File mediaFile;
+        String mImageName="profil.jpg";
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
+        return mediaFile;
+    }
+
+
+
+    public void downloadfini(JSONObject jsonObject){
+        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+        intent.putExtra("profil", profil);
+        intent.putExtra("Json", jsonObject.toString());
+        startActivity(intent);
+        finish();
 
     }
 
@@ -162,8 +190,72 @@ public class
         @Override
         protected void onPostExecute(String result){
             dialog.dismiss();
-            tryresult(result);
+            if(result.equals("KO")||result==null){
+                Toast toast = Toast.makeText(context, "Erreur d'identification", duration);
+                toast.show();
 
+            }
+            else{
+                File imgFile = new File(Environment.getExternalStorageDirectory()
+                        + "/Android/data/"
+                        + context.getPackageName()
+                        + "/Files","profil.jpg");
+                try {
+
+                    JSONObject jsonObject = new JSONObject(result);
+                    Toast toast = Toast.makeText(context, (CharSequence) jsonObject.get("name"), duration);
+                    toast.show();
+                    if(jsonObject.get("email")!=null&&jsonObject.get("id_GS")!=null&& jsonObject.get("auth")!=null&&jsonObject.get("name")!=null)
+                    { if(!imgFile.exists()){
+                        new DownloadImageTask(context,jsonObject).execute((String)jsonObject.get("photo"));}
+                        else {
+                        downloadfini(jsonObject);}
+
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+    }
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+
+        private Context context;
+        private ProgressDialog dialog;
+        private JSONObject jsonObject;
+
+        public DownloadImageTask(Context context,JSONObject jsonObject) {
+            this.jsonObject=jsonObject;
+            this.context=context;
+        }
+        protected void onPreExecute(){
+            super.onPreExecute();
+            dialog = new ProgressDialog(context);
+            dialog.setMessage("Chargement...");
+            dialog.show();
+
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            dialog.dismiss();
+            storeImage(result);
+            downloadfini(jsonObject);
         }
     }
 }

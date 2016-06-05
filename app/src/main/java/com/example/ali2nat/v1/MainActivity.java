@@ -83,14 +83,19 @@ public class MainActivity extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0);
         TextView nom=(TextView)  headerView.findViewById(R.id.textViewNom);
         TextView role=(TextView)headerView.findViewById(R.id.textViewrole);
+        ImageView imagenav=(ImageView)headerView.findViewById(R.id.profile_image);
 
         profil = (Profil) getIntent().getSerializableExtra("profil");
         profile = getIntent().getStringExtra("Json");
+        File imgFile = new File(Environment.getExternalStorageDirectory()
+                + "/Android/data/"
+                + getApplicationContext().getPackageName()
+                + "/Files","profil.jpg");
+
         try {
             JSONObject profileJSON = new JSONObject(profile);
-            Toast toast = Toast.makeText(this, (CharSequence) profileJSON.get("name"), Toast.LENGTH_LONG);
-            toast.show();
-            new DownloadImageTask((ImageView) headerView.findViewById(R.id.profile_image),this).execute((String)profileJSON.get("photo"));
+
+            imagenav.setImageBitmap(BitmapFactory.decodeFile(imgFile.getAbsolutePath()));
             nom.setText((String) profileJSON.get("name"));
             role.setText((String) profileJSON.get("auth"));
         } catch (JSONException e) {
@@ -116,45 +121,6 @@ public class MainActivity extends AppCompatActivity
 
 
     }
-    private void storeImage(Bitmap image) {
-        File pictureFile = getOutputMediaFile();
-        if (pictureFile == null) {
-            return;
-        }
-        try {
-            FileOutputStream fos = new FileOutputStream(pictureFile);
-            image.compress(Bitmap.CompressFormat.PNG, 90, fos);
-            fos.close();
-        } catch (FileNotFoundException e) {
-        } catch (IOException e) {
-        }
-    }
-    /** Create a File for saving an image or video */
-    private  File getOutputMediaFile(){
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
-        File mediaStorageDir = new File(Environment.getExternalStorageDirectory()
-                + "/Android/data/"
-                + getApplicationContext().getPackageName()
-                + "/Files");
-
-        // This location works best if you want the created images to be shared
-        // between applications and persist after your app has been uninstalled.
-
-        // Create the storage directory if it does not exist
-        if (! mediaStorageDir.exists()){
-            if (! mediaStorageDir.mkdirs()){
-                return null;
-            }
-        }
-        // Create a media file name
-
-        File mediaFile;
-        String mImageName="profil.jpg";
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
-        return mediaFile;
-    }
-
 
     @Override
     public void onBackPressed() {
@@ -310,40 +276,5 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
 
     }
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-        private Context context;
-        private ProgressDialog dialog;
 
-        public DownloadImageTask(ImageView bmImage,Context context) {
-            this.bmImage = bmImage;
-            this.context=context;
-        }
-        protected void onPreExecute(){
-            super.onPreExecute();
-            dialog = new ProgressDialog(context);
-            dialog.setMessage("Chargement...");
-            dialog.show();
-
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            dialog.dismiss();
-            bmImage.setImageBitmap(result);
-            storeImage(result);
-        }
-    }
 }
