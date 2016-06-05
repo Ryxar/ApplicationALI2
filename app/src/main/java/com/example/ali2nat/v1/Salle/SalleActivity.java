@@ -3,6 +3,7 @@ package com.example.ali2nat.v1.Salle;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,17 +13,25 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.ali2nat.v1.Adapteur.SalleAdapteur;
+
 import com.example.ali2nat.v1.Modele.Salle;
 import com.example.ali2nat.v1.R;
-import com.example.ali2nat.v1.Salle.SalleListeFragment;
-import com.google.android.gms.maps.MapFragment;
 
-import java.io.Serializable;
+import com.google.android.gms.identity.intents.Address;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class    SalleActivity extends AppCompatActivity implements SalleListeFragment.OnSalleSelectedListener{
+public class    SalleActivity extends AppCompatActivity implements SalleListeFragment.OnSalleSelectedListener, OnMapReadyCallback{
 
     public static final String NATURE_KEY = "nature_key";
     public static final String SALLES_KEY = "salles_key";
@@ -34,7 +43,8 @@ public class    SalleActivity extends AppCompatActivity implements SalleListeFra
     private Fragment fragPref;
     private Fragment fragRech;
 
-    private MapFragment mapFragment;
+    //private MapFragment mapFragment;
+    private SupportMapFragment mapF;
 
     private Button bRech, bMap;
     private EditText etRech;
@@ -92,12 +102,11 @@ public class    SalleActivity extends AppCompatActivity implements SalleListeFra
         // Commit the transaction
         transactionR.commit();
 
-        // Map
-         mapFragment = MapFragment.newInstance();
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.llMap, mapFragment);
-        fragmentTransaction.commit();
+        // -- Map --
+        GoogleMap googleMap;
 
+        mapF = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapF.getMapAsync(this);
 
         bRech = (Button) findViewById(R.id.bRech);
         etRech = (EditText) findViewById(R.id.etRech) ;
@@ -177,36 +186,6 @@ public class    SalleActivity extends AppCompatActivity implements SalleListeFra
 
 
 
-/*                      || Non utilisé ||
-    private void setFragment(boolean type){
-        int idLayout;
-        Fragment frag;
-        ArrayList<Salle> lSalles;
-        if(type == true){
-            idLayout = R.id.llSalleRech;
-            lSalles = sallesR;
-            frag = fragRech;
-        }
-        else{
-            idLayout = R.id.llSallePref;
-            lSalles = sallesPref;
-            frag = fragPref;
-        }
-        // Fragment pour les salles préférées
-        Bundle bundle = genererBundle(true, lSalles);
-        // Create new fragment and transaction
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        // on envoit le bundle
-        fragRech.setArguments(bundle);
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack
-        transaction.replace(idLayout, frag);
-        transaction.addToBackStack(null);
-        // Commit the transaction
-        transaction.commit();
-
-    }
-*/
 
 
 
@@ -236,6 +215,35 @@ public class    SalleActivity extends AppCompatActivity implements SalleListeFra
         for (int i = 0; i < 10; i++) {
             sallesR.add(new Salle("Salle R " + (i+1), "Adresse de la salle" + (i+1)));
         }
+
+    }
+
+    public LatLng getLocationFromAddress(String strAdress){
+        Geocoder coder = new Geocoder(this);
+        List<android.location.Address> address;
+        LatLng p1 = null;
+        try{
+            address = coder.getFromLocationName(strAdress, 5);
+            if(address == null){
+                return null;
+            }
+            android.location.Address locaction = address.get(0);
+           p1 = new LatLng( locaction.getLatitude(), locaction.getLongitude());
+
+        }catch (Exception e){
+            Log.e("MAP", "getLocationFromAddress: "+ e.toString());
+        }
+
+        return p1;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+
+       LatLng address = getLocationFromAddress("Montrouge");
+        map.addMarker(new MarkerOptions().position(address).title("Marker chez moi"));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(address,12));
+
 
     }
 }
