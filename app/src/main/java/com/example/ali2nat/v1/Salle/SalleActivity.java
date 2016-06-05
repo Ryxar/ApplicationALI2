@@ -2,9 +2,13 @@ package com.example.ali2nat.v1.Salle;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -12,12 +16,13 @@ import com.example.ali2nat.v1.Adapteur.SalleAdapteur;
 import com.example.ali2nat.v1.Modele.Salle;
 import com.example.ali2nat.v1.R;
 import com.example.ali2nat.v1.Salle.SalleListeFragment;
+import com.google.android.gms.maps.MapFragment;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SalleActivity extends AppCompatActivity implements SalleListeFragment.OnSalleSelectedListener{
+public class    SalleActivity extends AppCompatActivity implements SalleListeFragment.OnSalleSelectedListener{
 
     public static final String NATURE_KEY = "nature_key";
     public static final String SALLES_KEY = "salles_key";
@@ -28,6 +33,11 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
 
     private Fragment fragPref;
     private Fragment fragRech;
+
+    private MapFragment mapFragment;
+
+    private Button bRech, bMap;
+    private EditText etRech;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +92,24 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
         // Commit the transaction
         transactionR.commit();
 
+        // Map
+         mapFragment = MapFragment.newInstance();
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.llMap, mapFragment);
+        fragmentTransaction.commit();
 
+
+        bRech = (Button) findViewById(R.id.bRech);
+        etRech = (EditText) findViewById(R.id.etRech) ;
+        bRech.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("yolo", "onClick: ");
+                String rech =  etRech.getText().toString();
+                recherche(rech);
+            }
+        });
+        final Intent intent = new Intent(this, MapsActivity.class);
 
 
 
@@ -123,6 +150,29 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
         fragPref = nvFrag;
 
 
+    }
+
+    public void recherche(String recherche){
+        ArrayList<Salle> listRech = new ArrayList<>();
+        for (int i = 0; i < sallesR.size(); i++) {
+            if(sallesR.get(i).getNom().contains(recherche)){
+                listRech.add(sallesR.get(i));
+
+            }
+        }
+        Fragment nvFrag = new SalleListeFragment();
+        Bundle bundleRech = genererBundle("recherche", listRech);
+        // Create new fragment and transaction
+        FragmentTransaction transactionR = getFragmentManager().beginTransaction();
+        // on envoit le bundle
+        nvFrag.setArguments(bundleRech);
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack
+        transactionR.replace(R.id.llSalleRech, nvFrag);
+        transactionR.addToBackStack(null);
+        // Commit the transaction
+        transactionR.commit();
+        fragPref = nvFrag;
     }
 
 

@@ -63,7 +63,7 @@
                     android:inputType="textPostalAddress"
                     android:layout_margin="@dimen/dim2"
                     android:ems="10"
-                    android:id="@+id/editText"
+                    android:id="@+id/etRech"
                     android:layout_gravity="right" />
 
                 <TextView
@@ -75,11 +75,29 @@
                     android:textAlignment="center"
                     android:paddingTop="@dimen/dim1"/>
 
+
                 <SeekBar
-                    android:layout_width="match_parent"
+                    android:layout_width="421dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dim2"
                     android:id="@+id/seekBarSalles" />
+
+                <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rechercher"
+                android:id="@+id/bRech"
+                android:layout_toRightOf="@id/seekBarSalles"/>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/llMap"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
             </LinearLayout>
 
 

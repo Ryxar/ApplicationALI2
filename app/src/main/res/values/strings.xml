@@ -25,5 +25,8 @@
 
     <string name="titreDialog_true">Ajout de salle</string>
     <string name="titreDialog_false">Retrait de salle</string>
+    <string name="title_activity_maps">Map</string>
+
+    <string name="API_Map_Key">AIzaSyAW30hFNqV6mOSKigDktoNvEblGjfUIXuY</string>
 
 </resources>
