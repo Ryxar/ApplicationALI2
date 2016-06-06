@@ -128,10 +128,16 @@ public class
 
 
 
-    public void downloadfini(JSONObject jsonObject){
+    public void downloadfini(JSONObject jsonObjectProfil,JSONObject jsonObjectSalles){
+
+
         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
         intent.putExtra("profil", profil);
-        intent.putExtra("Json", jsonObject.toString());
+        intent.putExtra("JsonProfil", jsonObjectProfil.toString());
+
+        Log.d("yolo", "BOOOOMMM");
+        //intent.putExtra("JsonSalles",jsonObjectSalles.toString());
+
         startActivity(intent);
         finish();
 
@@ -196,20 +202,17 @@ public class
 
             }
             else{
-                File imgFile = new File(Environment.getExternalStorageDirectory()
-                        + "/Android/data/"
-                        + context.getPackageName()
-                        + "/Files","profil.jpg");
+
                 try {
 
                     JSONObject jsonObject = new JSONObject(result);
                     Toast toast = Toast.makeText(context, (CharSequence) jsonObject.get("name"), duration);
                     toast.show();
                     if(jsonObject.get("email")!=null&&jsonObject.get("id_GS")!=null&& jsonObject.get("auth")!=null&&jsonObject.get("name")!=null)
-                    { if(!imgFile.exists()){
-                        new DownloadImageTask(context,jsonObject).execute((String)jsonObject.get("photo"));}
-                        else {
-                        downloadfini(jsonObject);}
+                    {
+
+
+                        new DownloadSallesActivity(context,jsonObject).execute();
 
 
                     }
@@ -225,10 +228,11 @@ public class
 
         private Context context;
         private ProgressDialog dialog;
-        private JSONObject jsonObject;
+        private JSONObject jsonObjectProfil,jsonObjectSalles;
 
-        public DownloadImageTask(Context context,JSONObject jsonObject) {
-            this.jsonObject=jsonObject;
+        public DownloadImageTask(Context context,JSONObject jsonObjectProfil,JSONObject jsonObjectSalles) {
+            this.jsonObjectProfil=jsonObjectProfil;
+            this.jsonObjectSalles=jsonObjectSalles;
             this.context=context;
         }
         protected void onPreExecute(){
@@ -255,13 +259,17 @@ public class
         protected void onPostExecute(Bitmap result) {
             dialog.dismiss();
             storeImage(result);
-            downloadfini(jsonObject);
+            downloadfini(jsonObjectProfil,jsonObjectSalles);
         }
     }
+
     class DownloadSallesActivity  extends AsyncTask<Void,Void,String> {
         private Context context;
         private ProgressDialog dialog;
-        public DownloadSallesActivity(Context context) {
+        private JSONObject jsonObjectProfil;
+
+        public DownloadSallesActivity(Context context,JSONObject jsonObjectProfil) {
+            this.jsonObjectProfil=jsonObjectProfil;
             this.context = context;
         }
 
@@ -269,7 +277,7 @@ public class
         protected void onPreExecute(){
             super.onPreExecute();
             dialog = new ProgressDialog(context);
-            dialog.setMessage("Chargement...");
+            dialog.setMessage("Chargement3...");
             dialog.show();
 
         }
@@ -310,6 +318,34 @@ public class
         @Override
         protected void onPostExecute(String result){
             dialog.dismiss();
+
+            Log.d("yolo", result);
+
+
+            File imgFile = new File(Environment.getExternalStorageDirectory()
+                    + "/Android/data/"
+                    + context.getPackageName()
+                    + "/Files","profil.jpg");
+
+            try {
+                Log.d("yolo", result);
+                JSONObject jsonObjectSalles = new JSONObject(result);
+                //Toast toast = Toast.makeText(context, (CharSequence) jsonObjectSalles.get("classroom_id"), duration);
+                //toast.show();
+
+                if(!imgFile.exists()){
+                    Log.d("yolo", "Boom");
+                    new DownloadImageTask(context,jsonObjectProfil,jsonObjectSalles).execute((String)jsonObjectProfil.get("photo"));}
+                else {
+                    downloadfini(jsonObjectProfil,jsonObjectSalles);}
+
+
+                } catch (JSONException e1) {
+                Log.d("yolo", "Boom");
+                e1.printStackTrace();
+            }
+
         }
-}
+
+        }
 }

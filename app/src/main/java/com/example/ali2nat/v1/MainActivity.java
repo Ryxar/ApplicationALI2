@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
     Toolbar toolbar=null;
 
     private Fragment frag;
-    private String profile;
+    private String profile,salles;
     JSONObject profileJSON;
 
 
@@ -87,7 +87,8 @@ public class MainActivity extends AppCompatActivity
         ImageView imagenav=(ImageView)headerView.findViewById(R.id.profile_image);
 
         profil = (Profil) getIntent().getSerializableExtra("profil");
-        profile = getIntent().getStringExtra("Json");
+        profile = getIntent().getStringExtra("JsonProfil");
+        salles=getIntent().getStringExtra("JsonSalels");
         File imgFile = new File(Environment.getExternalStorageDirectory()
                 + "/Android/data/"
                 + getApplicationContext().getPackageName()

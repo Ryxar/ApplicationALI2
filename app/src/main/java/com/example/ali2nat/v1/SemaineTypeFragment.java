@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,7 +37,9 @@ public class SemaineTypeFragment extends AbstractFragment  {
 
 
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-      events= new ArrayList<WeekViewEvent>();
+        if(getEvents()==null){
+      events= new ArrayList<WeekViewEvent>();}
+
 
         // Populate the week view with some events.
         //events = getEvents();
@@ -58,8 +61,11 @@ public class SemaineTypeFragment extends AbstractFragment  {
          startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, 8-7);
         startTime.set(Calendar.MINUTE, 0);
+        startTime.set(Calendar.MONTH, newMonth-1);
+        startTime.set(Calendar.YEAR, newYear);
          endTime = (Calendar) startTime.clone();
         endTime.add(Calendar.HOUR, 2);
+
          event = new WeekViewEvent(1, "ok","nok", startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_01));
         events.add(event);
@@ -79,17 +85,16 @@ public class SemaineTypeFragment extends AbstractFragment  {
         // On récupère le bundle
         Bundle bundle = this.getArguments();
 
-        events = new ArrayList<>();
+        //events = new ArrayList<>();
 
-        int taille = bundle.getInt(MainActivity.EVENT_KEY);
+        /*int taille = bundle.getInt(MainActivity.EVENT_KEY);
         Log.d("yolo", "onCreateView: taille liste"+taille);
         for (int t = 0; t< taille; t++)
-            events.add((WeekViewEvent) bundle.getParcelable(MainActivity.EVENT_NUM_TYPE + t));
+            events.add((WeekViewEvent) bundle.getParcelable(MainActivity.EVENT_NUM_TYPE + t));*/
 
 
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) vp.findViewById(R.id.weekView);
-        ML=this;
 
 
 
@@ -238,11 +243,15 @@ public class SemaineTypeFragment extends AbstractFragment  {
                         Calendar endTime = (Calendar) startTime.clone();
                         endTime.add(Calendar.HOUR, 1);
                         WeekViewEvent event = new WeekViewEvent(1, "ok","nok", startTime, endTime);
-                        event.setColor(getResources().getColor(R.color.event_color_01));
+                        event.setColor(getResources().getColor(R.color.event_color_02));
                         events.add(event);
                         getWeekView().setMonthChangeListener(getML());
                         CharSequence text = "taille :" + getEvents().size();
                         int duration = Toast.LENGTH_SHORT;
+                        SemaineTypeFragment fragment=new SemaineTypeFragment();
+                        FragmentTransaction tr = getFragmentManager().beginTransaction();
+                        tr.replace(R.id.fragment_container,fragment);
+                        tr.commit();
 
                         Toast toast = Toast.makeText(getActivity(), text, duration);
                         toast.show();
