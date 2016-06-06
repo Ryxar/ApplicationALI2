@@ -57,45 +57,75 @@
                     android:textAlignment="center"
                     android:layout_gravity="center" />
 
-                <EditText
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim4"
-                    android:inputType="textPostalAddress"
-                    android:layout_margin="@dimen/dim2"
-                    android:ems="10"
-                    android:id="@+id/etRech"
-                    android:layout_gravity="right" />
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="377dp"
+                        android:layout_height="@dimen/dim4"
+                        android:inputType="textPostalAddress"
+                        android:layout_margin="@dimen/dim2"
+                        android:ems="10"
+                        android:id="@+id/etRech"
+                        android:layout_gravity="left"
+                        android:layout_weight="2"/>
+
+                    <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rechercher"
+                    android:id="@+id/bRech"
+                    android:layout_toRightOf="@id/etRech"
+                        android:layout_weight="1"
+                         />
+
+                </LinearLayout>
+
+
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Rayon :"
-                    android:id="@+id/tVRayon"
-                    android:textAlignment="center"
-                    android:paddingTop="@dimen/dim1"/>
+                    android:text="Nom Salle"
+                    android:id="@+id/tvNomSalle"
+                    android:layout_gravity="center_horizontal"
+                    android:textAppearance="?android:textAppearanceLarge"/>
 
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <SeekBar
-                    android:layout_width="421dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dim2"
-                    android:id="@+id/seekBarSalles" />
-
-                <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rechercher"
-                android:id="@+id/bRech"
-                android:layout_toRightOf="@id/seekBarSalles"/>
-
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Adresse de la salle"
+                        android:id="@+id/tvAdresse"
+                        android:layout_weight="1"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icone_fav_vide"
+                        android:id="@+id/ivIcone"
+                        android:layout_weight="1"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ajouter/supprimer"
+                        android:id="@+id/bAction"
+                        android:layout_weight="1"/>
+                </LinearLayout>
 
                 <fragment
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/map"
                     class="com.google.android.gms.maps.SupportMapFragment"/>
+
             </LinearLayout>
 
 
