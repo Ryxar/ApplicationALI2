@@ -258,4 +258,58 @@ public class
             downloadfini(jsonObject);
         }
     }
+    class DownloadSallesActivity  extends AsyncTask<Void,Void,String> {
+        private Context context;
+        private ProgressDialog dialog;
+        public DownloadSallesActivity(Context context) {
+            this.context = context;
+        }
+
+
+        protected void onPreExecute(){
+            super.onPreExecute();
+            dialog = new ProgressDialog(context);
+            dialog.setMessage("Chargement...");
+            dialog.show();
+
+        }
+
+        protected String doInBackground(Void... voids) {
+
+            try{
+
+
+                String link =  "http://ws.gymsuedoise.com/api/V2/classroom&country=FR&apikey=XE2uG449BC";
+
+                URL url= new URL(link);
+                HttpURLConnection urlConnection= (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+                urlConnection.connect();
+                InputStream inputStream= urlConnection.getInputStream();
+                BufferedReader input = new BufferedReader(new InputStreamReader(inputStream));
+
+                StringBuffer sb = new StringBuffer("");
+                String line="";
+
+                while ((line = input.readLine()) != null) {
+                    sb.append(line);
+                    break;
+                }
+                input.close();
+                return sb.toString();
+            }
+
+            catch(Exception e){
+                return new String("Exception: " + e.getMessage());
+            }
+
+
+
+        }
+
+        @Override
+        protected void onPostExecute(String result){
+            dialog.dismiss();
+        }
+}
 }

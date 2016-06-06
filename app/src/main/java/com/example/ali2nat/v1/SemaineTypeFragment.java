@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
+import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
 
@@ -29,12 +30,13 @@ import java.util.StringTokenizer;
 public class SemaineTypeFragment extends AbstractFragment  {
     private WeekView mWeekView;
     private   List<WeekViewEvent> events;
+    private MonthLoader.MonthChangeListener ML;
 
     private OnCoursSelectedListener mCallback;
 
 
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-      //events= new ArrayList<WeekViewEvent>();
+      events= new ArrayList<WeekViewEvent>();
 
         // Populate the week view with some events.
         //events = getEvents();
@@ -50,6 +52,15 @@ public class SemaineTypeFragment extends AbstractFragment  {
         endTime.add(Calendar.HOUR_OF_DAY, 10);
         WeekViewEvent event = new WeekViewEvent(5, "Yolo","NomYoloSalle", startTime, endTime);
 
+        event.setColor(getResources().getColor(R.color.event_color_01));
+        events.add(event);
+
+         startTime = Calendar.getInstance();
+        startTime.set(Calendar.HOUR_OF_DAY, 8-7);
+        startTime.set(Calendar.MINUTE, 0);
+         endTime = (Calendar) startTime.clone();
+        endTime.add(Calendar.HOUR, 2);
+         event = new WeekViewEvent(1, "ok","nok", startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_01));
         events.add(event);
 
@@ -78,6 +89,7 @@ public class SemaineTypeFragment extends AbstractFragment  {
 
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) vp.findViewById(R.id.weekView);
+        ML=this;
 
 
 
@@ -104,7 +116,7 @@ public class SemaineTypeFragment extends AbstractFragment  {
         // Inflate the layout for this fragment
         return vp;
     }
-
+        private MonthLoader.MonthChangeListener getML(){return ML;}
 
     /**
      * Set up a date time interpreter which will show short date values when in week view and long
@@ -207,13 +219,28 @@ public class SemaineTypeFragment extends AbstractFragment  {
 
                     public void onClick(DialogInterface dialog, int which) {
 
-                        WeekViewEvent event = genererCours("</Strong>","Salle de bonhomme ta vue", date);
+                       /* WeekViewEvent event = genererCours("</Strong>","Salle de bonhomme ta vue", date);
                         event.setColor(getResources().getColor(R.color.event_color_02));
                         getEvents().add(event);
                         Log.d("yolo", "onClick: ");
                        // mWeekView.getMoreEvents();
                         //mCallback.onArticleSelected(event);
                         mWeekView.notifyDatasetChanged();
+                        CharSequence text = "taille :" + getEvents().size();
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(getActivity(), text, duration);
+                        toast.show();*/
+                        events=getEvents();
+                        Calendar startTime = Calendar.getInstance();
+                        startTime.set(Calendar.HOUR_OF_DAY, 7-7);
+                        startTime.set(Calendar.MINUTE, 0);
+                        Calendar endTime = (Calendar) startTime.clone();
+                        endTime.add(Calendar.HOUR, 1);
+                        WeekViewEvent event = new WeekViewEvent(1, "ok","nok", startTime, endTime);
+                        event.setColor(getResources().getColor(R.color.event_color_01));
+                        events.add(event);
+                        getWeekView().setMonthChangeListener(getML());
                         CharSequence text = "taille :" + getEvents().size();
                         int duration = Toast.LENGTH_SHORT;
 
