@@ -1,6 +1,7 @@
 package com.example.ali2nat.v1;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.RectF;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
@@ -210,14 +213,41 @@ public class SemaineTypeFragment extends AbstractFragment  {
     }
     private void showPopUpAjout(Calendar time) {
 
-        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(getContext());
+        final Dialog dialog = new Dialog(getContext());
         final Date date = time.getTime();
-        helpBuilder.setTitle("Formulaire d'ajout");
-        helpBuilder.setMessage("Voulez vous ajouter un cours le : "+date+"/"+date.getMonth()+"/"+date.getYear()+ " à"+date.getHours()+"h"+date.getMinutes());
-        helpBuilder.setPositiveButton("Ajouter",
-                new DialogInterface.OnClickListener() {
+        dialog.setContentView(R.layout.dialog_ajout);
+        dialog.setTitle("Formulaire d'ajout");
 
-                    public void onClick(DialogInterface dialog, int which) {
+        // there are a lot of settings, for dialog, check them all out!
+        // set up radiobutton
+        RadioButton rd1 = (RadioButton) dialog.findViewById(R.id.rd_1);
+        RadioButton rd2 = (RadioButton) dialog.findViewById(R.id.rd_2);
+        Button btnAjout=(Button)dialog.findViewById(R.id.btnAjout);
+        Button btnRetour=(Button)dialog.findViewById(R.id.btnRetour);
+
+
+
+
+        btnAjout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Set the new event with duration one hour.
+                Calendar startTime = Calendar.getInstance();
+                startTime.set(Calendar.HOUR_OF_DAY, 7-7);
+                startTime.set(Calendar.MINUTE, 0);
+                Calendar endTime = (Calendar)startTime.clone();
+                endTime.add(Calendar.HOUR, 1);
+
+                // Create a new event.
+                WeekViewEvent event = new WeekViewEvent(20, "New event","salle", startTime, endTime);
+                event.setColor(getResources().getColor(R.color.event_color_03));
+                mNewEvents.add(event);
+
+                // Refresh the week view. onMonthChange will be called again.
+                mWeekView.notifyDatasetChanged();
+            }
+        });
+
+                   /* public void onClick(DialogInterface dialog, int which) {
 
                         // Set the new event with duration one hour.
                         Calendar startTime = Calendar.getInstance();
@@ -228,25 +258,26 @@ public class SemaineTypeFragment extends AbstractFragment  {
 
                         // Create a new event.
                         WeekViewEvent event = new WeekViewEvent(20, "New event","salle", startTime, endTime);
+                        event.setColor(getResources().getColor(R.color.event_color_03));
                         mNewEvents.add(event);
 
                         // Refresh the week view. onMonthChange will be called again.
                         mWeekView.notifyDatasetChanged();
                     }
 
-                });
+                });*/
 
-        helpBuilder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+        btnRetour.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Set the new event with duration one hour.
+                dialog.dismiss();
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Do nothing
             }
         });
 
         // Remember, create doesn't show the dialog
-        AlertDialog helpDialog = helpBuilder.create();
-        helpDialog.show();
+
+        dialog.show();
     }
 
     /*public WeekViewEvent genererCours( String salle, Date date){
