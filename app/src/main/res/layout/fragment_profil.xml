@@ -114,7 +114,8 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
                         android:text="128 h "
-                        android:textStyle="normal"/>
+                        android:textStyle="normal"
+                        android:layout_gravity="center_horizontal" />
                     </LinearLayout>
                 <LinearLayout
                     android:orientation="vertical"
