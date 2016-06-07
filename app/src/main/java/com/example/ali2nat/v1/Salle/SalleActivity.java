@@ -191,6 +191,7 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
             ivIcone.setImageResource(R.drawable.icone_fav_vide);
             tvNomSalle.setText(salleSelectionnee.getNom());
             tvAdresse.setText(salleSelectionnee.getAdresse());
+
         }
         else {
 
@@ -199,7 +200,7 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
             tvNomSalle.setText(salleSelectionnee.getNom());
             tvAdresse.setText(salleSelectionnee.getAdresse());
         }
-
+        ajoutMarker();
 
 
 
@@ -258,7 +259,7 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
         sallesR.add(new Salle("Paris 9 Bergère","5 rue Bergère Paris 75009"));
         sallesR.add(new Salle("Paris 4 Saint Merri","16 rue du Renard Paris 75004"));
         sallesR.add(new Salle("Paris 7 Saint Jean","11 rue Pierre Villey Paris 75007"));
-        sallesR.add(new Salle("Paris 6 Stanislas - G2","Collège Stanislas - 6 rue du Montparnasse Paris 75006"));
+        sallesR.add(new Salle("Paris 6 Stanislas","Collège Stanislas - 6 rue du Montparnasse Paris 75006"));
         sallesR.add(new Salle("Paris 7 Camou","35 avenue de la Bourdonnais Paris 75007"));
         sallesR.add(new Salle("Paris 9 Grange Batelière","Ecole maternelle Grange Batelière, 11 rue Grange Batelière Paris 75009"));
         sallesR.add(new Salle("Paris 13 Thomas Mann","Rue Cadets de la France Libre Paris 75013"));

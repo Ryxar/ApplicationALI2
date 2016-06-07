@@ -1,20 +1,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:id="@+id/dialoglayout">
 
     <RadioButton
         android:id="@+id/rd_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/timePicker"
-        android:text="A" />
+        android:text="Paris 9 Bergère" />
 
     <RadioButton
         android:id="@+id/rd_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rd_1"
-        android:text="B" />
+        android:text="Paris 4 Saint Merri"
+        />
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+        
+    </ListView>
 
     <TimePicker
         android:layout_width="match_parent"
@@ -28,13 +35,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/rd_2"
         android:id="@+id/btnAjout"
-        android:text="Ajout" />
+        android:layout_alignParentLeft="true"
+        android:text="Ajout"
+
+        style="@style/btnStyleShakespeare"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/btnAjout"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/rd_2"
         android:id="@+id/btnRetour"
-        android:text="Retour" />
+        android:text="Retour"
+        style="@style/btnStyleShakespeare" />
 </RelativeLayout>

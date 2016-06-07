@@ -94,26 +94,10 @@ public class SalleListeFragment extends Fragment {
                                     int position, long id) {
                 Log.d("type", "type : " + recherche);
                 final int pos = position;
-                startColorAnimation(view);
-                view.startAnimation(anim);
+
                 final String titre;
                 final String text ;
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Ajout Salle")
-                        .setMessage("Etes vous sûr de vouloir ajouter cette salle.")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // continue with delete
-                                mCallback.onArticleSelected(pos, recherche);
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do nothing
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                mCallback.onArticleSelected(pos, recherche);
 
 
 

@@ -79,6 +79,8 @@
                     android:id="@+id/bRech"
                     android:layout_toRightOf="@id/etRech"
                         android:layout_weight="1"
+
+                        style="@style/btnStyleShakespeare"
                          />
 
                 </LinearLayout>
@@ -117,7 +119,9 @@
                         android:layout_height="wrap_content"
                         android:text="Ajouter/supprimer"
                         android:id="@+id/bAction"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+
+                        style="@style/btnStyleShakespeare"/>
                 </LinearLayout>
 
                 <fragment

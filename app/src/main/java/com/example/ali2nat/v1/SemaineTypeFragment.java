@@ -222,8 +222,7 @@ public class SemaineTypeFragment extends AbstractFragment  {
 
         // there are a lot of settings, for dialog, check them all out!
         // set up radiobutton
-        RadioButton rd1 = (RadioButton) dialog.findViewById(R.id.rd_1);
-        RadioButton rd2 = (RadioButton) dialog.findViewById(R.id.rd_2);
+
         Button btnAjout=(Button)dialog.findViewById(R.id.btnAjout);
         Button btnRetour=(Button)dialog.findViewById(R.id.btnRetour);
 
@@ -234,20 +233,27 @@ public class SemaineTypeFragment extends AbstractFragment  {
         btnAjout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 TimePicker timePicker=(TimePicker)dialog.findViewById(R.id.timePicker);
-                timePicker.setIs24HourView(DateFormat.is24HourFormat(getContext()));
+                RadioButton rd1 = (RadioButton) dialog.findViewById(R.id.rd_1);
+                RadioButton rd2 = (RadioButton) dialog.findViewById(R.id.rd_2);
+                timePicker.setIs24HourView(true);
                 int h=timePicker.getCurrentHour();
-                int gh=h-6;
+                int gh=h-7;
                 // Set the new event with duration one hour.
                 Calendar startTime = Calendar.getInstance();
                 startTime.set(Calendar.HOUR_OF_DAY, gh);
-                startTime.set(Calendar.MINUTE, 0);
+                startTime.set(Calendar.MINUTE, timePicker.getCurrentMinute());
                 Calendar endTime = (Calendar)startTime.clone();
                 endTime.add(Calendar.HOUR, 1);
 
                 // Create a new event.
-                WeekViewEvent event = new WeekViewEvent(20, "Salle Paris 9","salle", startTime, endTime);
+                if(rd1.isChecked()){
+                WeekViewEvent event = new WeekViewEvent(20, "Paris 9 Bergère","salle", startTime, endTime);
                 event.setColor(getResources().getColor(R.color.event_color_03));
-                mNewEvents.add(event);
+                mNewEvents.add(event);}
+                if(rd2.isChecked()){
+                    WeekViewEvent event = new WeekViewEvent(21, "Paris 4 Saint Merri","salle", startTime, endTime);
+                    event.setColor(getResources().getColor(R.color.event_color_02));
+                    mNewEvents.add(event);}
 
                 // Refresh the week view. onMonthChange will be called again.
                 mWeekView.notifyDatasetChanged();
