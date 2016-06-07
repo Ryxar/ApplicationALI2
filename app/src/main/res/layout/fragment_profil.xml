@@ -98,7 +98,7 @@
                     android:layout_width="400dp"
                     android:layout_height="200dp"
                     android:layout_weight="1"
-                    android:background="@color/yellow"
+                    android:background="@drawable/fondjaune"
                     android:layout_marginRight="20dp"
                     >
                     <TextView
@@ -107,37 +107,46 @@
                         android:textAlignment="center"
                         android:text="Nombre d'heure saisies :"
                         android:textStyle="bold"
+                        android:textSize="30dp"
                         android:gravity="center"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
-                        android:text="128 h "
-                        android:textStyle="normal"
-                        android:layout_gravity="center_horizontal" />
+                        android:text="128 H "
+                        android:layout_marginTop="20dp"
+                        android:textStyle="bold"
+                        android:textSize="40dp"
+                        android:layout_gravity="center"
+                        />
                     </LinearLayout>
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="400dp"
                     android:layout_height="200dp"
                     android:layout_weight="1"
-                    android:background="@color/yellow"
+                    android:background="@drawable/fondjaune"
                     android:layout_marginLeft="20dp"
                     >
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
-                        android:text="Nombre de salle favorites"
-                        android:textStyle="bold"/>
+                        android:text="Nombre de salle favorites :"
+                        android:textStyle="bold"
+                        android:textSize="30dp"
+                        android:gravity="center"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
                         android:text="2"
-                        android:textStyle="normal"/>
+                        android:layout_marginTop="20dp"
+                        android:textStyle="bold"
+                        android:textSize="40dp"
+                        android:layout_gravity="center"/>
 
                 </LinearLayout>
 
