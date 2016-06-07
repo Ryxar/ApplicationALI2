@@ -327,7 +327,7 @@ public class PlanningFragment extends AbstractFragment   {
                         endTime.add(Calendar.HOUR, 1);
 
                         // Create a new event.
-                        WeekViewEvent event = new WeekViewEvent(20, "New event","salle", startTime, endTime);
+                        WeekViewEvent event = new WeekViewEvent(20, "Salle Paris 9","salle", startTime, endTime);
                         event.setColor(getResources().getColor(R.color.event_color_03));
                         mNewEvents.add(event);
 

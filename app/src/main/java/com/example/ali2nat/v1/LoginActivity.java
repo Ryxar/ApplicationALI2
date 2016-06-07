@@ -17,7 +17,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.ali2nat.v1.Modele.Profil;
+import com.example.ali2nat.v1.Modele.Salle;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,10 +34,18 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 public class
         LoginActivity extends AppCompatActivity {
+
+
+    public static final String LSALLE_KEY = "lsalle_key";
+    public static final String LSALLE_NUM_TYPE = "lsalle_";
 
     private EditText usernameField,passwordField;
     private Profil profil;
@@ -128,16 +138,17 @@ public class
 
 
 
-    public void downloadfini(JSONObject jsonObjectProfil,JSONObject jsonObjectSalles){
+    public void downloadfini(JSONObject jsonObjectProfil,List<Salle> lSalles){
 
 
         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
         intent.putExtra("profil", profil);
         intent.putExtra("JsonProfil", jsonObjectProfil.toString());
 
-        Log.d("yolo", "BOOOOMMM");
-        //intent.putExtra("JsonSalles",jsonObjectSalles.toString());
-
+        intent.putExtra(LSALLE_KEY, lSalles.size());
+        for (int i = 0; i < lSalles.size(); i++) {
+            intent.putExtra(LSALLE_NUM_TYPE+i,lSalles.get(i));
+        }
         startActivity(intent);
         finish();
 
@@ -228,9 +239,10 @@ public class
 
         private Context context;
         private ProgressDialog dialog;
-        private JSONObject jsonObjectProfil,jsonObjectSalles;
+        private JSONObject jsonObjectProfil;
+        private List<Salle> jsonObjectSalles;
 
-        public DownloadImageTask(Context context,JSONObject jsonObjectProfil,JSONObject jsonObjectSalles) {
+        public DownloadImageTask(Context context,JSONObject jsonObjectProfil,List<Salle> jsonObjectSalles) {
             this.jsonObjectProfil=jsonObjectProfil;
             this.jsonObjectSalles=jsonObjectSalles;
             this.context=context;
@@ -263,7 +275,7 @@ public class
         }
     }
 
-    class DownloadSallesActivity  extends AsyncTask<Void,Void,String> {
+    class DownloadSallesActivity  extends AsyncTask<Void,Void,List<Salle>> {
         private Context context;
         private ProgressDialog dialog;
         private JSONObject jsonObjectProfil;
@@ -282,44 +294,47 @@ public class
 
         }
 
-        protected String doInBackground(Void... voids) {
-
+        protected List<Salle> doInBackground(Void... voids) {
+            List<Salle> lsalles = new ArrayList<>();
             try{
-
-
-                String link =  "http://ws.gymsuedoise.com/api/V2/classroom&country=FR&apikey=XE2uG449BC";
-
-                URL url= new URL(link);
-                HttpURLConnection urlConnection= (HttpURLConnection) url.openConnection();
+                URL url= new URL("http://ws.gymsuedoise.com/api/V2/classroom&country=FR&apikey=XE2uG449BC");
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty("Content-Type", "application/json");
                 urlConnection.connect();
                 InputStream inputStream= urlConnection.getInputStream();
                 BufferedReader input = new BufferedReader(new InputStreamReader(inputStream));
+                String json = input.readLine();
 
-                StringBuffer sb = new StringBuffer("");
-                String line="";
+                Log.d("yolo", json);
 
-                while ((line = input.readLine()) != null) {
-                    sb.append(line);
-                    break;
+                JSONArray array = new JSONArray(json);
+                Log.d("yolo", array.toString());
+
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject object= array.getJSONObject(i);
+                    String nomSalle = object.getString("classroom_name");
+
+                    Log.d("yolo", nomSalle);
+                    String adresse = object.getString("classroom_adress")+ " " +object.getString("classroom_city")+"" + object.getInt("classroom_zip");
+                    lsalles.add(new Salle(nomSalle, adresse));
+
+                    Log.d("yolo", adresse);
                 }
-                input.close();
-                return sb.toString();
+                Log.d("yolo", "CaMarche");
+                return lsalles;
             }
-
             catch(Exception e){
-                return new String("Exception: " + e.getMessage());
             }
 
-
-
+            Log.d("yolo", "CaMarchePAAAAAA");
+            return lsalles;
         }
 
-        @Override
-        protected void onPostExecute(String result){
+
+
+        protected void onPostExecute(List<Salle> result){
             dialog.dismiss();
 
-            Log.d("yolo", result);
 
 
             File imgFile = new File(Environment.getExternalStorageDirectory()
@@ -327,23 +342,19 @@ public class
                     + context.getPackageName()
                     + "/Files","profil.jpg");
 
-            try {
-                Log.d("yolo", result);
-                JSONObject jsonObjectSalles = new JSONObject(result);
                 //Toast toast = Toast.makeText(context, (CharSequence) jsonObjectSalles.get("classroom_id"), duration);
                 //toast.show();
 
                 if(!imgFile.exists()){
                     Log.d("yolo", "Boom");
-                    new DownloadImageTask(context,jsonObjectProfil,jsonObjectSalles).execute((String)jsonObjectProfil.get("photo"));}
+                    try {
+                        new DownloadImageTask(context,jsonObjectProfil,result).execute((String)jsonObjectProfil.get("photo"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
                 else {
-                    downloadfini(jsonObjectProfil,jsonObjectSalles);}
-
-
-                } catch (JSONException e1) {
-                Log.d("yolo", "Boom");
-                e1.printStackTrace();
-            }
+                    downloadfini(jsonObjectProfil,result);}
 
         }
 

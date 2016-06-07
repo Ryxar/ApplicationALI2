@@ -238,7 +238,7 @@ public class SemaineTypeFragment extends AbstractFragment  {
                 endTime.add(Calendar.HOUR, 1);
 
                 // Create a new event.
-                WeekViewEvent event = new WeekViewEvent(20, "New event","salle", startTime, endTime);
+                WeekViewEvent event = new WeekViewEvent(20, "Salle Paris 9","salle", startTime, endTime);
                 event.setColor(getResources().getColor(R.color.event_color_03));
                 mNewEvents.add(event);
 
@@ -247,25 +247,6 @@ public class SemaineTypeFragment extends AbstractFragment  {
             }
         });
 
-                   /* public void onClick(DialogInterface dialog, int which) {
-
-                        // Set the new event with duration one hour.
-                        Calendar startTime = Calendar.getInstance();
-                        startTime.set(Calendar.HOUR_OF_DAY, 7-7);
-                        startTime.set(Calendar.MINUTE, 0);
-                        Calendar endTime = (Calendar)startTime.clone();
-                        endTime.add(Calendar.HOUR, 1);
-
-                        // Create a new event.
-                        WeekViewEvent event = new WeekViewEvent(20, "New event","salle", startTime, endTime);
-                        event.setColor(getResources().getColor(R.color.event_color_03));
-                        mNewEvents.add(event);
-
-                        // Refresh the week view. onMonthChange will be called again.
-                        mWeekView.notifyDatasetChanged();
-                    }
-
-                });*/
 
         btnRetour.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -280,25 +261,7 @@ public class SemaineTypeFragment extends AbstractFragment  {
         dialog.show();
     }
 
-    /*public WeekViewEvent genererCours( String salle, Date date){
-        // On genrer les variables
-        WeekViewEvent cours;
-        Calendar startTime, endTime;
 
-        startTime = Calendar.getInstance();
-        startTime.set(Calendar.DAY_OF_MONTH, date.getDay());
-        startTime.set(Calendar.HOUR_OF_DAY, date.getHours());
-        startTime.set(date.getYear(), date.getMonth(), date.getDay(), date.getHours(),date.getMinutes());
-        startTime.set(Calendar.MINUTE, 0);
-        endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR_OF_DAY, date.getHours()+2);
-
-
-        cours = new WeekViewEvent((events.size()+1), "yolo",salle ,startTime, endTime );
-
-        return cours;
-
-    }*/
 
     public WeekView getWeekView() {
         return mWeekView;

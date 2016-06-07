@@ -89,7 +89,12 @@ public class MainActivity extends AppCompatActivity
 
         profil = (Profil) getIntent().getSerializableExtra("profil");
         profile = getIntent().getStringExtra("JsonProfil");
-        salles=getIntent().getStringExtra("JsonSalels");
+
+        // recuperation SAlle
+        int taille = getIntent().getIntExtra(LoginActivity.LSALLE_KEY, 0);
+        for (int i = 0; i < taille; i++) {
+            lesSalles.add((Salle) getIntent().getParcelableExtra(LoginActivity.LSALLE_NUM_TYPE+i));
+        }
         File imgFile = new File(Environment.getExternalStorageDirectory()
                 + "/Android/data/"
                 + getApplicationContext().getPackageName()
