@@ -1,6 +1,7 @@
 package com.example.ali2nat.v1;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.RectF;
 import android.os.Bundle;
@@ -37,15 +38,15 @@ public class SemaineTypeFragment extends AbstractFragment  {
 
 
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-        if(getEvents()==null){
-      events= new ArrayList<WeekViewEvent>();}
+
+     // events= new ArrayList<WeekViewEvent>();
 
 
         // Populate the week view with some events.
-        //events = getEvents();
+        events = getEvents();
         Log.d("yolo", "onMonthChange:liste "+events.size());
 
-
+        /*
         Calendar startTime = Calendar.getInstance();
         startTime.set(Calendar.DAY_OF_MONTH, 1);
         startTime.set(Calendar.HOUR_OF_DAY, 8);
@@ -56,17 +57,19 @@ public class SemaineTypeFragment extends AbstractFragment  {
         WeekViewEvent event = new WeekViewEvent(5, "Yolo","NomYoloSalle", startTime, endTime);
 
         event.setColor(getResources().getColor(R.color.event_color_01));
-        events.add(event);
+        events.add(event);*/
 
-         startTime = Calendar.getInstance();
+
+
+         Calendar startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, 8-7);
         startTime.set(Calendar.MINUTE, 0);
         startTime.set(Calendar.MONTH, newMonth-1);
         startTime.set(Calendar.YEAR, newYear);
-         endTime = (Calendar) startTime.clone();
+         Calendar endTime = (Calendar) startTime.clone();
         endTime.add(Calendar.HOUR, 2);
 
-         event = new WeekViewEvent(1, "ok","nok", startTime, endTime);
+        WeekViewEvent event = new WeekViewEvent(1, "ok","nok", startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_01));
         events.add(event);
 
@@ -84,8 +87,8 @@ public class SemaineTypeFragment extends AbstractFragment  {
 
         // On récupère le bundle
         Bundle bundle = this.getArguments();
-
-        //events = new ArrayList<>();
+        if(getEvents()==null){
+        events = new ArrayList<>();}
 
         /*int taille = bundle.getInt(MainActivity.EVENT_KEY);
         Log.d("yolo", "onCreateView: taille liste"+taille);
@@ -224,7 +227,7 @@ public class SemaineTypeFragment extends AbstractFragment  {
 
                     public void onClick(DialogInterface dialog, int which) {
 
-                       /* WeekViewEvent event = genererCours("</Strong>","Salle de bonhomme ta vue", date);
+                       WeekViewEvent event = genererCours("Salle de bonhomme ta vue", date);
                         event.setColor(getResources().getColor(R.color.event_color_02));
                         getEvents().add(event);
                         Log.d("yolo", "onClick: ");
@@ -235,26 +238,17 @@ public class SemaineTypeFragment extends AbstractFragment  {
                         int duration = Toast.LENGTH_SHORT;
 
                         Toast toast = Toast.makeText(getActivity(), text, duration);
-                        toast.show();*/
+                        toast.show();
                         events=getEvents();
                         Calendar startTime = Calendar.getInstance();
                         startTime.set(Calendar.HOUR_OF_DAY, 7-7);
                         startTime.set(Calendar.MINUTE, 0);
                         Calendar endTime = (Calendar) startTime.clone();
                         endTime.add(Calendar.HOUR, 1);
-                        WeekViewEvent event = new WeekViewEvent(1, "ok","nok", startTime, endTime);
+                         event = new WeekViewEvent(1, "ok","nok", startTime, endTime);
                         event.setColor(getResources().getColor(R.color.event_color_02));
                         events.add(event);
-                        getWeekView().setMonthChangeListener(getML());
-                        CharSequence text = "taille :" + getEvents().size();
-                        int duration = Toast.LENGTH_SHORT;
-                        SemaineTypeFragment fragment=new SemaineTypeFragment();
-                        FragmentTransaction tr = getFragmentManager().beginTransaction();
-                        tr.replace(R.id.fragment_container,fragment);
-                        tr.commit();
 
-                        Toast toast = Toast.makeText(getActivity(), text, duration);
-                        toast.show();
 
                     }
 
@@ -273,7 +267,7 @@ public class SemaineTypeFragment extends AbstractFragment  {
         helpDialog.show();
     }
 
-    public WeekViewEvent genererCours(String intensite, String salle, Date date){
+    public WeekViewEvent genererCours( String salle, Date date){
         // On genrer les variables
         WeekViewEvent cours;
         Calendar startTime, endTime;

@@ -9,8 +9,7 @@
     android:paddingRight="@dimen/dim2"
     android:paddingTop="@dimen/dim6"
     android:background="@color/fond"
-    android:id="@+id/fragment_profil"
-    tools:context="com.example.ali2nat.v1.ProfilActivity">
+    android:id="@+id/fragment_profil">
 
     <LinearLayout
         android:orientation="vertical"

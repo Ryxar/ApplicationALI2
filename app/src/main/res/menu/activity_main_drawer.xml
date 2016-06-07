@@ -9,9 +9,10 @@
             android:title="Mon Profil"
             />
         <item
-            android:id="@+id/nav_salles"
+            android:id="@+id/nav_salle_act"
             android:icon="@drawable/ic_menu_salles"
-            android:title="Mes Salles" />
+            android:title="Mes Salles "/>
+
         <item
             android:id="@+id/nav_planning"
             android:icon="@drawable/ic_menu_planning"
@@ -20,15 +21,8 @@
             android:id="@+id/nav_semaine_type"
             android:icon="@drawable/ic_menu_planning"
             android:title="Ma Semaine Type"/>
-        <item
-            android:id="@+id/nav_salle_act"
-            android:icon="@drawable/ic_menu_salles"
-            android:title="Mes Salles (activity)"/>
 
-        <item
-            android:id="@+id/nav_prof_act"
-            android:icon="@drawable/ic_menu_planning"
-            android:title="Mon profil (activity)"/>
+
 
     </group>
 
