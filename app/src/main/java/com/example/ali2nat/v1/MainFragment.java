@@ -78,11 +78,6 @@ public class MainFragment extends Fragment {
 
         }
 
-        lvPeriode = (ListView) v.findViewById(R.id.lvPeriode);
-        lvStat = (ListView) v.findViewById(R.id.lvStat);
-
-        lPeriode = new ArrayList();
-        lStats = new ArrayList();
 
         tvNom = (TextView )v.findViewById(R.id.tvNom);
         tvAdresse =  (TextView )v.findViewById(R.id.tvAdresse);
@@ -98,14 +93,9 @@ public class MainFragment extends Fragment {
          tvAdresse.setText(profil.getAdresse());
 
 
-        genererPeriode();
-        genererStat();
 
-        PeriodeAdapteur adapteur_periode = new PeriodeAdapteur(getActivity(), lPeriode);
-        StatistiqueAdaptateur adapteur_stat = new StatistiqueAdaptateur(getActivity(), lStats);
 
-        lvStat.setAdapter(adapteur_stat);
-        lvPeriode.setAdapter(adapteur_periode);
+
         return v;
     }
 

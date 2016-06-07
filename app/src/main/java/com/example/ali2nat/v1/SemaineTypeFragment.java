@@ -3,6 +3,7 @@ package com.example.ali2nat.v1;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.RectF;
 import android.os.Bundle;
@@ -37,6 +38,8 @@ import java.util.StringTokenizer;
 public class SemaineTypeFragment extends AbstractFragment  {
     private WeekView mWeekView;
     private ArrayList<WeekViewEvent> mNewEvents;
+    private int duration = Toast.LENGTH_SHORT;
+
 
     private OnCoursSelectedListener mCallback;
 
@@ -213,12 +216,14 @@ public class SemaineTypeFragment extends AbstractFragment  {
         AlertDialog helpDialog = helpBuilder.create();
         helpDialog.show();
     }
-    private void showPopUpAjout(Calendar time) {
+    private void showPopUpAjout(final Calendar time) {
 
         final Dialog dialog = new Dialog(getContext());
         final Date date = time.getTime();
         dialog.setContentView(R.layout.dialog_ajout);
         dialog.setTitle("Formulaire d'ajout");
+
+
 
         // there are a lot of settings, for dialog, check them all out!
         // set up radiobutton
@@ -238,10 +243,12 @@ public class SemaineTypeFragment extends AbstractFragment  {
                 timePicker.setIs24HourView(true);
                 int h=timePicker.getCurrentHour();
                 int gh=h-7;
+                Calendar rc=time;
                 // Set the new event with duration one hour.
                 Calendar startTime = Calendar.getInstance();
                 startTime.set(Calendar.HOUR_OF_DAY, gh);
                 startTime.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+                startTime.set(Calendar.DAY_OF_WEEK,rc.get(Calendar.DAY_OF_WEEK));
                 Calendar endTime = (Calendar)startTime.clone();
                 endTime.add(Calendar.HOUR, 1);
 
