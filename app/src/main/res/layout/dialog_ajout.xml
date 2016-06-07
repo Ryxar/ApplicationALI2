@@ -6,6 +6,7 @@
         android:id="@+id/rd_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/timePicker"
         android:text="A" />
 
     <RadioButton
@@ -15,12 +16,19 @@
         android:layout_below="@+id/rd_1"
         android:text="B" />
 
+    <TimePicker
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/timePicker">
+    </TimePicker>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rd_2"
         android:id="@+id/btnAjout"
         android:text="Ajout" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
