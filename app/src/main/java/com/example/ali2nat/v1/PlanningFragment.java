@@ -43,8 +43,56 @@ public class PlanningFragment extends AbstractFragment   {
             int decalage=7;
 
             List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
-            ArrayList<WeekViewEvent> newEvents = getNewEvents(newYear, newMonth);
-            events.addAll(newEvents);
+            /*ArrayList<WeekViewEvent> newEvents = getNewEvents(newYear, newMonth);
+            events.addAll(newEvents);*/
+
+            Calendar startTime = Calendar.getInstance();
+            startTime.set(Calendar.HOUR_OF_DAY, 13-7);
+            startTime.set(Calendar.MINUTE, 40);
+            startTime.set(Calendar.DAY_OF_MONTH,8);
+            startTime.set(Calendar.MONTH,newMonth-1);
+            startTime.set(Calendar.YEAR,newYear);
+            Calendar endTime = (Calendar)startTime.clone();
+            endTime.add(Calendar.HOUR, 1);
+            WeekViewEvent event = new WeekViewEvent(20, "Paris 9 Bergère","salle", startTime, endTime);
+            event.setColor(getResources().getColor(R.color.event_color_03));
+            events.add(event);
+
+            startTime = Calendar.getInstance();
+            startTime.set(Calendar.HOUR_OF_DAY, 10-7);
+            startTime.set(Calendar.MINUTE, 40);
+            startTime.set(Calendar.DAY_OF_WEEK,9);
+            startTime.set(Calendar.MONTH,newMonth-1);
+            startTime.set(Calendar.YEAR,newYear);
+             endTime = (Calendar)startTime.clone();
+            endTime.add(Calendar.HOUR, 1);
+            event = new WeekViewEvent(21, "Paris 4 Saint Merri","salle", startTime, endTime);
+            event.setColor(getResources().getColor(R.color.event_color_02));
+            events.add(event);
+
+            startTime = Calendar.getInstance();
+            startTime.set(Calendar.HOUR_OF_DAY, 13-7);
+            startTime.set(Calendar.MINUTE, 40);
+            startTime.set(Calendar.DAY_OF_MONTH,16);
+            startTime.set(Calendar.MONTH,newMonth-1);
+            startTime.set(Calendar.YEAR,newYear);
+            endTime = (Calendar)startTime.clone();
+            endTime.add(Calendar.HOUR, 1);
+             event = new WeekViewEvent(22, "Paris 9 Bergère","salle", startTime, endTime);
+            event.setColor(getResources().getColor(R.color.event_color_03));
+            events.add(event);
+
+            startTime = Calendar.getInstance();
+            startTime.set(Calendar.HOUR_OF_DAY, 10-7);
+            startTime.set(Calendar.MINUTE, 40);
+            startTime.set(Calendar.DAY_OF_MONTH,15);
+            startTime.set(Calendar.MONTH,newMonth-1);
+            startTime.set(Calendar.YEAR,newYear);
+            endTime = (Calendar)startTime.clone();
+            endTime.add(Calendar.HOUR, 1);
+            event = new WeekViewEvent(23, "Paris 4 Saint Merri","salle", startTime, endTime);
+            event.setColor(getResources().getColor(R.color.event_color_02));
+            events.add(event);
 
 
 
