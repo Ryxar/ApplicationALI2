@@ -140,7 +140,7 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
                 if(nature == "recherche"){
                     sallesPref.add(salleSelectionnee);
                     // -- Update des listes -- //
-                    Bundle bundleRech = genererBundle("favori", sallesPref);
+                    Bundle bundleRech = genererBundle("favori ", sallesPref);
                     // Create new fragment and transaction
                     FragmentTransaction transactionR = getFragmentManager().beginTransaction();
                     // on envoit le bundle
