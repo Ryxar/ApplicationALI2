@@ -75,7 +75,7 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
         sallesR = new ArrayList();
         salleSelectionnee  = null;
 
-        genererSallesPref();
+
         genererSalles();
         // -- -- --  Fragment
         fragPref = new SalleListeFragment();
@@ -140,7 +140,7 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
                 if(nature == "recherche"){
                     sallesPref.add(salleSelectionnee);
                     // -- Update des listes -- //
-                    Bundle bundleRech = genererBundle(nature, sallesPref);
+                    Bundle bundleRech = genererBundle("favori", sallesPref);
                     // Create new fragment and transaction
                     FragmentTransaction transactionR = getFragmentManager().beginTransaction();
                     // on envoit le bundle
@@ -184,7 +184,7 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
         tvNomSalle.setVisibility(View.VISIBLE);
         ivIcone.setVisibility(View.VISIBLE);
         nature = type;
-        ajoutMarker();
+//        ajoutMarker();
         if(type == "recherche"){
 
             salleSelectionnee = sallesR.get(position);
@@ -252,17 +252,19 @@ public class SalleActivity extends AppCompatActivity implements SalleListeFragme
     }
 
 
-    private void genererSallesPref() {
-        for (int i = 0; i < 5; i++) {
-            sallesPref.add(new Salle("Salle Pref " + (i+1), "Adresse de la salle" + (i+1)));
-        }
 
-    }
 
     private void genererSalles() {
-        for (int i = 0; i < 10; i++) {
-            sallesR.add(new Salle("Salle R " + (i+1), "Adresse de la salle" + (i+1)));
-        }
+        sallesR.add(new Salle("Paris 9 Bergère","5 rue Bergère Paris 75009"));
+        sallesR.add(new Salle("Paris 4 Saint Merri","16 rue du Renard Paris 75004"));
+        sallesR.add(new Salle("Paris 7 Saint Jean","11 rue Pierre Villey Paris 75007"));
+        sallesR.add(new Salle("Paris 6 Stanislas - G2","Collège Stanislas - 6 rue du Montparnasse Paris 75006"));
+        sallesR.add(new Salle("Paris 7 Camou","35 avenue de la Bourdonnais Paris 75007"));
+        sallesR.add(new Salle("Paris 9 Grange Batelière","Ecole maternelle Grange Batelière, 11 rue Grange Batelière Paris 75009"));
+        sallesR.add(new Salle("Paris 13 Thomas Mann","Rue Cadets de la France Libre Paris 75013"));
+        sallesR.add(new Salle("Paris 13 Glacière","88 rue de la Glacière Paris 75013"));
+        sallesR.add(new Salle("Paris 13 Rentiers","184 rue du Château des Rentiers Paris 75013"));
+        sallesR.add(new Salle("Paris 13 Blanqui","26 bd Auguste Blanqui"));
 
     }
 

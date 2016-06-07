@@ -17,6 +17,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
         View headerView = navigationView.getHeaderView(0);
         TextView nom=(TextView)  headerView.findViewById(R.id.textViewNom);
         TextView role=(TextView)headerView.findViewById(R.id.textViewrole);
@@ -166,6 +168,10 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+    public void deconnexion(MenuItem item){
+        finish();
+    }
+
 
 
     @SuppressWarnings("StatementWithEmptyBody")

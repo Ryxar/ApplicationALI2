@@ -8,12 +8,14 @@ import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
@@ -228,11 +230,16 @@ public class SemaineTypeFragment extends AbstractFragment  {
 
 
 
+
         btnAjout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                TimePicker timePicker=(TimePicker)dialog.findViewById(R.id.timePicker);
+                timePicker.setIs24HourView(DateFormat.is24HourFormat(getContext()));
+                int h=timePicker.getCurrentHour();
+                int gh=h-6;
                 // Set the new event with duration one hour.
                 Calendar startTime = Calendar.getInstance();
-                startTime.set(Calendar.HOUR_OF_DAY, 7-7);
+                startTime.set(Calendar.HOUR_OF_DAY, gh);
                 startTime.set(Calendar.MINUTE, 0);
                 Calendar endTime = (Calendar)startTime.clone();
                 endTime.add(Calendar.HOUR, 1);
@@ -244,6 +251,7 @@ public class SemaineTypeFragment extends AbstractFragment  {
 
                 // Refresh the week view. onMonthChange will be called again.
                 mWeekView.notifyDatasetChanged();
+                dialog.dismiss();
             }
         });
 
