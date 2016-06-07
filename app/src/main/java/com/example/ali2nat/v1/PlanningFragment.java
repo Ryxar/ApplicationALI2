@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.MonthLoader;
@@ -33,11 +34,14 @@ public class PlanningFragment extends AbstractFragment   {
     private WeekView mWeekView;
     private Button BtnSemSui,BtnSemPrec;
     private String intensite="Null";
+    private   List<WeekViewEvent> events;
 
         public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
             // Populate the week view with some events.
-            List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
+
             int decalage=7;
+
+            List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
 
 
             intensite="Cours d'intensité HARDCORE";
@@ -143,6 +147,7 @@ public class PlanningFragment extends AbstractFragment   {
                 event.setColor(getResources().getColor(R.color.event_color_02));
                 events.add(event);
             }
+            setEvents(events);
 
 
 
@@ -171,6 +176,8 @@ public class PlanningFragment extends AbstractFragment   {
                 SemainePrec();
             }
         });
+
+
 
 
 
@@ -306,7 +313,28 @@ public class PlanningFragment extends AbstractFragment   {
                 new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        // Do nothing but close the dialog
+
+                        /* WeekViewEvent event = genererCours("Salle de bonhomme ta vue", date);
+                        event.setColor(getResources().getColor(R.color.event_color_03));
+                        getEvents().add(event);
+                        Log.d("yolo", "onClick: ");
+                       // mWeekView.getMoreEvents();*/
+                        //mCallback.onArticleSelected(event);
+                        mWeekView.notifyDatasetChanged();
+                        CharSequence text = "taille :" + getEvents().size();
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(getActivity(), text, duration);
+                        toast.show();
+                        events=getEvents();
+                        Calendar startTime = Calendar.getInstance();
+                        startTime.set(Calendar.HOUR_OF_DAY, 7-7);
+                        startTime.set(Calendar.MINUTE, 0);
+                        Calendar endTime = (Calendar) startTime.clone();
+                        endTime.add(Calendar.HOUR, 1);
+                        WeekViewEvent event = new WeekViewEvent(1, "ok",null,"nok", startTime, endTime,false);
+                        event.setColor(getResources().getColor(R.color.event_color_02));
+                        events.add(event);
                     }
                 });
 
@@ -325,6 +353,13 @@ public class PlanningFragment extends AbstractFragment   {
 
     public WeekView getWeekView() {
         return mWeekView;
+    }
+
+    public List<WeekViewEvent> getEvents() {
+        return this.events;
+    }
+    public void setEvents(List<WeekViewEvent> events) {
+        this.events=events;
     }
 
     }
