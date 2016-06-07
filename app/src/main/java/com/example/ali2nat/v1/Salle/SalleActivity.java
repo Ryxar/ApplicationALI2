@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -31,7 +33,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class    SalleActivity extends AppCompatActivity implements SalleListeFragment.OnSalleSelectedListener, OnMapReadyCallback{
+public class SalleActivity extends AppCompatActivity implements SalleListeFragment.OnSalleSelectedListener, OnMapReadyCallback{
 
     public static final String NATURE_KEY = "nature_key";
     public static final String SALLES_KEY = "salles_key";
@@ -39,6 +41,8 @@ public class    SalleActivity extends AppCompatActivity implements SalleListeFra
 
     private ListView mListSalle, mListPref;
     private ArrayList<Salle> sallesPref, sallesR;
+    private Salle salleSelectionnee;
+    private String nature;
 
     private Fragment fragPref;
     private Fragment fragRech;
@@ -46,20 +50,30 @@ public class    SalleActivity extends AppCompatActivity implements SalleListeFra
     //private MapFragment mapFragment;
     private SupportMapFragment mapF;
 
-    private Button bRech, bMap;
+    private Button bRech, bAction;
     private EditText etRech;
+    private TextView tvNomSalle, tvAdresse;
+    private ImageView ivIcone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_salle);
 
+        nature = "vide";
 
+        tvNomSalle = (TextView) findViewById(R.id.tvNomSalle);
+        tvAdresse = (TextView) findViewById(R.id.tvAdresse);
+        ivIcone = (ImageView) findViewById(R.id.ivIcone);
+        tvNomSalle.setVisibility(View.GONE);
+        tvAdresse.setVisibility(View.GONE);
+        ivIcone.setVisibility(View.GONE);
 
 
         // On initialise les listes d'éléments
         sallesPref = new ArrayList();
         sallesR = new ArrayList();
+        salleSelectionnee  = null;
 
         genererSallesPref();
         genererSalles();
@@ -69,7 +83,7 @@ public class    SalleActivity extends AppCompatActivity implements SalleListeFra
 
         // Fragment pour les salles préférées
         Log.d("tag", "pref");
-        Bundle bundle = genererBundle("preferer", sallesPref);
+        Bundle bundle = genererBundle("favori", sallesPref);
         Log.d("type", "Bundle:  "+bundle);
         // Create new fragment and transaction
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -118,7 +132,47 @@ public class    SalleActivity extends AppCompatActivity implements SalleListeFra
                 recherche(rech);
             }
         });
-        final Intent intent = new Intent(this, MapsActivity.class);
+        bAction = (Button) findViewById(R.id.bAction);
+        bAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment nvFrag = new SalleListeFragment();
+                if(nature == "recherche"){
+                    sallesPref.add(salleSelectionnee);
+                    // -- Update des listes -- //
+                    Bundle bundleRech = genererBundle(nature, sallesPref);
+                    // Create new fragment and transaction
+                    FragmentTransaction transactionR = getFragmentManager().beginTransaction();
+                    // on envoit le bundle
+                    nvFrag.setArguments(bundleRech);
+                    // Replace whatever is in the fragment_container view with this fragment,
+                    // and add the transaction to the back stack
+                    transactionR.replace(R.id.llSallePref, nvFrag);
+                    transactionR.addToBackStack(null);
+                    // Commit the transaction
+                    transactionR.commit();
+                    fragPref = nvFrag;
+                }else if(nature == "favori"){
+                    sallesPref.remove(salleSelectionnee);
+                    // -- Update des listes -- //
+                    Bundle bundleRech = genererBundle(nature, sallesPref);
+                    // Create new fragment and transaction
+                    FragmentTransaction transactionR = getFragmentManager().beginTransaction();
+                    // on envoit le bundle
+                    nvFrag.setArguments(bundleRech);
+                    // Replace whatever is in the fragment_container view with this fragment,
+                    // and add the transaction to the back stack
+                    transactionR.replace(R.id.llSallePref, nvFrag);
+                    transactionR.addToBackStack(null);
+                    // Commit the transaction
+                    transactionR.commit();
+                    fragPref = nvFrag;
+                }else{
+
+                }
+            }
+        });
+
 
 
 
@@ -126,37 +180,27 @@ public class    SalleActivity extends AppCompatActivity implements SalleListeFra
 
     public void onArticleSelected(int position, String type){
 
+        tvAdresse.setVisibility(View.VISIBLE);
+        tvNomSalle.setVisibility(View.VISIBLE);
+        ivIcone.setVisibility(View.VISIBLE);
+        nature = type;
+        ajoutMarker();
         if(type == "recherche"){
 
-            Salle salle = sallesR.get(position);
-            sallesPref.add(salle);
-            Toast.makeText((this),
-                    "ajout de salle " +salle.getNom() + "à liste pref", Toast.LENGTH_LONG)
-                    .show();
+            salleSelectionnee = sallesR.get(position);
+            ivIcone.setImageResource(R.drawable.icone_fav_vide);
+            tvNomSalle.setText(salleSelectionnee.getNom());
+            tvAdresse.setText(salleSelectionnee.getAdresse());
         }
-        else{
+        else {
 
-            Salle salle = sallesPref.get(position);
-            Toast.makeText((this),
-                    "retrait de " +salle.getNom() + "à liste pref", Toast.LENGTH_LONG)
-                    .show();
-            sallesPref.remove(salle);
-
+            salleSelectionnee = sallesPref.get(position);
+            ivIcone.setImageResource(R.drawable.icone_fav_plein);
+            tvNomSalle.setText(salleSelectionnee.getNom());
+            tvAdresse.setText(salleSelectionnee.getAdresse());
         }
 
-        Fragment nvFrag = new SalleListeFragment();
-        Bundle bundleRech = genererBundle(type, sallesPref);
-        // Create new fragment and transaction
-        FragmentTransaction transactionR = getFragmentManager().beginTransaction();
-        // on envoit le bundle
-        nvFrag.setArguments(bundleRech);
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack
-        transactionR.replace(R.id.llSallePref, nvFrag);
-        transactionR.addToBackStack(null);
-        // Commit the transaction
-        transactionR.commit();
-        fragPref = nvFrag;
+
 
 
     }
@@ -168,7 +212,11 @@ public class    SalleActivity extends AppCompatActivity implements SalleListeFra
                 listRech.add(sallesR.get(i));
 
             }
+            if(sallesR.get(i).getAdresse().contains(recherche)){
+                listRech.add(sallesR.get(i));
+            }
         }
+
         Fragment nvFrag = new SalleListeFragment();
         Bundle bundleRech = genererBundle("recherche", listRech);
         // Create new fragment and transaction
@@ -240,10 +288,17 @@ public class    SalleActivity extends AppCompatActivity implements SalleListeFra
     @Override
     public void onMapReady(GoogleMap map) {
 
-       LatLng address = getLocationFromAddress("Montrouge");
+       LatLng address = getLocationFromAddress("3 bis rue Lakanal Sceaux");
         map.addMarker(new MarkerOptions().position(address).title("Marker chez moi"));
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(address,12));
 
+
+    }
+
+    public void ajoutMarker(){
+        LatLng latLng = getLocationFromAddress(salleSelectionnee.getAdresse());
+        GoogleMap googleMap = mapF.getMap();
+        googleMap.addMarker(new MarkerOptions().position(latLng).title(salleSelectionnee.getNom()));
 
     }
 }
