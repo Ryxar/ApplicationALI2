@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.MonthLoader;
@@ -33,11 +34,17 @@ public class PlanningFragment extends AbstractFragment   {
     private WeekView mWeekView;
     private Button BtnSemSui,BtnSemPrec;
     private String intensite="Null";
+    private   List<WeekViewEvent> events;
+    private ArrayList<WeekViewEvent> mNewEvents;
 
         public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
             // Populate the week view with some events.
-            List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
+
             int decalage=7;
+
+            List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
+            ArrayList<WeekViewEvent> newEvents = getNewEvents(newYear, newMonth);
+            events.addAll(newEvents);
 
 
             intensite="Cours d'intensité HARDCORE";
@@ -143,6 +150,7 @@ public class PlanningFragment extends AbstractFragment   {
                 event.setColor(getResources().getColor(R.color.event_color_02));
                 events.add(event);
             }
+            setEvents(events);
 
 
 
@@ -171,6 +179,10 @@ public class PlanningFragment extends AbstractFragment   {
                 SemainePrec();
             }
         });
+
+        mNewEvents = new ArrayList<WeekViewEvent>();
+
+
 
 
 
@@ -306,7 +318,21 @@ public class PlanningFragment extends AbstractFragment   {
                 new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        // Do nothing but close the dialog
+
+                        // Set the new event with duration one hour.
+                        Calendar startTime = Calendar.getInstance();
+                        startTime.set(Calendar.HOUR_OF_DAY, 7-7);
+                        startTime.set(Calendar.MINUTE, 0);
+                        Calendar endTime = (Calendar)startTime.clone();
+                        endTime.add(Calendar.HOUR, 1);
+
+                        // Create a new event.
+                        WeekViewEvent event = new WeekViewEvent(20, "New event","salle", startTime, endTime);
+                        event.setColor(getResources().getColor(R.color.event_color_03));
+                        mNewEvents.add(event);
+
+                        // Refresh the week view. onMonthChange will be called again.
+                        mWeekView.notifyDatasetChanged();
                     }
                 });
 
@@ -322,9 +348,45 @@ public class PlanningFragment extends AbstractFragment   {
         AlertDialog helpDialog = helpBuilder.create();
         helpDialog.show();
     }
+    private ArrayList<WeekViewEvent> getNewEvents(int year, int month) {
+
+        // Get the starting point and ending point of the given month. We need this to find the
+        // events of the given month.
+        Calendar startOfMonth = Calendar.getInstance();
+        startOfMonth.set(Calendar.YEAR, year);
+        startOfMonth.set(Calendar.MONTH, month - 1);
+        startOfMonth.set(Calendar.DAY_OF_MONTH, 1);
+        startOfMonth.set(Calendar.HOUR_OF_DAY, 0);
+        startOfMonth.set(Calendar.MINUTE, 0);
+        startOfMonth.set(Calendar.SECOND, 0);
+        startOfMonth.set(Calendar.MILLISECOND, 0);
+        Calendar endOfMonth = (Calendar) startOfMonth.clone();
+        endOfMonth.set(Calendar.DAY_OF_MONTH, endOfMonth.getMaximum(Calendar.DAY_OF_MONTH));
+        endOfMonth.set(Calendar.HOUR_OF_DAY, 23);
+        endOfMonth.set(Calendar.MINUTE, 59);
+        endOfMonth.set(Calendar.SECOND, 59);
+
+        // Find the events that were added by tapping on empty view and that occurs in the given
+        // time frame.
+        ArrayList<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
+        for (WeekViewEvent event : mNewEvents) {
+            if (event.getEndTime().getTimeInMillis() > startOfMonth.getTimeInMillis() &&
+                    event.getStartTime().getTimeInMillis() < endOfMonth.getTimeInMillis()) {
+                events.add(event);
+            }
+        }
+        return events;
+    }
 
     public WeekView getWeekView() {
         return mWeekView;
+    }
+
+    public List<WeekViewEvent> getEvents() {
+        return this.events;
+    }
+    public void setEvents(List<WeekViewEvent> events) {
+        this.events=events;
     }
 
     }
